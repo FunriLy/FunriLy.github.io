@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>java调用cmd编译(二) | FunriLySpace</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="利用java后台来编译运行C源文件，主要是为了开发一个在线编译网站的准备。这里主要介绍如何编译运行C源文件，其实对于其他语言，道理都是一模一样的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java调用cmd编译(二)">
+<meta property="og:url" content="http://yoursite.com/2017/02/05/java调用cmd编译C文件(二)/index.html">
+<meta property="og:site_name" content="FunriLySpace">
+<meta property="og:description" content="利用java后台来编译运行C源文件，主要是为了开发一个在线编译网站的准备。这里主要介绍如何编译运行C源文件，其实对于其他语言，道理都是一模一样的。">
+<meta property="og:image" content="http://yoursite.com/index_files/_u7F16_u8BD1_u5931_u8D25.png">
+<meta property="og:updated_time" content="2017-02-05T02:47:04.357Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java调用cmd编译(二)">
+<meta name="twitter:description" content="利用java后台来编译运行C源文件，主要是为了开发一个在线编译网站的准备。这里主要介绍如何编译运行C源文件，其实对于其他语言，道理都是一模一样的。">
+<meta name="twitter:image" content="http://yoursite.com/index_files/_u7F16_u8BD1_u5931_u8D25.png">
+    
+
+    
+        <link rel="alternate" href="/" title="FunriLySpace" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/css/images/avatar.png" />
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">FunriLySpace</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">主页</a>
+                
+                    <a class="main-nav-link" href="/archives">目录</a>
+                
+                    <a class="main-nav-link" href="/aboutme">关于我</a>
+                
+                    <a class="main-nav-link" href="/my_works">我的工作</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">主页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">目录</a></td>
+                
+                    <td><a class="main-nav-link" href="/aboutme">关于我</a></td>
+                
+                    <td><a class="main-nav-link" href="/my_works">我的工作</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">FunriLy</h2>
+            <h3 id="title">天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>中国, 广东</span>
+            <a id="follow" target="_blank" href="https://github.com/FunriLy/">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                3
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                1
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/FunriLy/" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="twitter" class=tooltip>
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="facebook" class=tooltip>
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="dribbble" class=tooltip>
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-java调用cmd编译C文件(二)" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            java调用cmd编译(二)
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/02/05/java调用cmd编译C文件(二)/">
+            <time datetime="2017-02-05T02:21:51.000Z" itemprop="datePublished">2017-02-05</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/其他奇奇怪怪的/">其他奇奇怪怪的</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/java/">java</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>利用java后台来编译运行C源文件，主要是为了开发一个在线编译网站的准备。<br>这里主要介绍如何编译运行C源文件，其实对于其他语言，道理都是一模一样的。<br><a id="more"></a></p>
+<h2 id="如何使用Java来编译运行C文件-二"><a href="#如何使用Java来编译运行C文件-二" class="headerlink" title="如何使用Java来编译运行C文件(二)"></a>如何使用Java来编译运行C文件(二)</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>码农的小日子过得好好的，指导老师一个兴起要求搞一个自己的在线编译网站，我们这种做小弟的只能老老实实地去搞。还好刚刚结束了考试与比赛，因为各种原因导致原定于寒假开工的项目延迟到下学期了，刚好趁这段空闲的时间来搞一搞。其实，自己感觉搞这个的话也挺好玩的~</p>
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>利用java后台来编译运行C源文件，主要是为了开发一个在线编译网站的准备。<br>这里主要介绍如何编译运行C源文件，其实对于其他语言，道理都是一模一样的。</p>
+<h2 id="开始动工"><a href="#开始动工" class="headerlink" title="开始动工"></a>开始动工</h2><h3 id="批处理文件"><a href="#批处理文件" class="headerlink" title="批处理文件"></a>批处理文件</h3><p>先填补上一篇博文剩下的坑。<br>稍微解释一下情景，我想要<code>cd</code>到E盘，然后调用<code>gcc</code>来编译<code>.c</code>文件，可惜搜索借用网上关于使用<code>&amp;&amp;</code>来连接多条<code>cmd</code>语句不能成功，暂时我只想到利用批处理文件来实现这个功能了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">后缀名为.bat的文件，会被系统自动编译为批处理文件。*.bat 文件中输入，就相当于在dos 窗口中输入一样， 编辑完成后，双击即可运行。</div><div class="line">临时变量：在批处理文件 中设置临时变量方式：`set 变量名=变量值`， = 左右不要有空格，使用方式： %变量名% 即可。</div><div class="line">批处理文件执行完之后，窗口会自动关闭；若想执行完之后，窗口不自动关闭的话，在文件末尾添加 pause 即可。</div></pre></td></tr></table></figure></p>
+<p><strong>调用批处理文件来实现编译</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Runtime run = Runtime.getRuntime();</div><div class="line">String filePath = <span class="string">"bat文件绝对地址"</span>;</div><div class="line">Process p = run.exec(<span class="string">"cmd.exe /c "</span> + filePath);</div><div class="line"><span class="comment">//这样子就实现了java调用执行多条cmd语句</span></div></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="编译C源文件"><a href="#编译C源文件" class="headerlink" title="编译C源文件"></a>编译C源文件</h3><p>将<code>.bat</code>文件与<code>.c</code>文件放于同一目录之下，调用<code>Runtime.getRuntime().exec()</code>来执行编译功能。<br>对于编译来说，只要是获取有可能的错误提示，通过不断接收我们开启的进程的<code>getErrorStream()</code>来获得编译的错误提示。<br><strong>注意，</strong>这里没有涉及到我们构建的进程(会有三条不同的流：标准输入流、标准输出流、错误输入流)多条流之间的交互关系，所以理论上不需要使用<code>waitFor()</code>来获取结果。但在运行过程中就不得不使用这个方法来堵塞进程。<br><strong><code>waitFor()</code>容易导致死锁的发生！</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">    <span class="keyword">static</span> Process c;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 通过 Runtime 调用批处理文件来编译编源文件</div><div class="line">     * 注意：批处理文件需要与编译源文件位于同一目录下</div><div class="line">     * <span class="doctag">@param</span> filePath 批处理文件的绝对路径</div><div class="line">     * <span class="doctag">@throws</span> FileNotFoundException 找不到</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">compileApplication</span><span class="params">(String filePath)</span> <span class="keyword">throws</span> FileNotFoundException </span>&#123;</div><div class="line">        Runtime run = Runtime.getRuntime();</div><div class="line">        String cPath = filePath.replace(<span class="string">"bat"</span>, <span class="string">"c"</span>);</div><div class="line"></div><div class="line">        File batFile = <span class="keyword">new</span> File(filePath);</div><div class="line">        File cFile = <span class="keyword">new</span> File(cPath);</div><div class="line"></div><div class="line">        <span class="keyword">if</span>(!cFile.exists())&#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> FileNotFoundException(<span class="string">"找不到c编译源文件！"</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span>(batFile.exists()) &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                c = run.exec(<span class="string">"cmd.exe /c "</span> + filePath);</div><div class="line">                InputStream in = c.getInputStream();</div><div class="line">                BufferedInputStream errorIn = <span class="keyword">new</span> BufferedInputStream(c.getErrorStream());</div><div class="line">                <span class="keyword">int</span> ch;</div><div class="line">                StringBuffer errortext = <span class="keyword">new</span> StringBuffer(<span class="string">""</span>);</div><div class="line">                <span class="comment">//如果有编译错误，读取错误提示</span></div><div class="line">                <span class="keyword">while</span> ((ch = errorIn.read()) != -<span class="number">1</span>) &#123;</div><div class="line">                    errortext.append((<span class="keyword">char</span>) ch);</div><div class="line">                &#125;</div><div class="line">                <span class="comment">//将编译错误打印出来,并抛出错误异常</span></div><div class="line">                <span class="keyword">if</span> (!errortext.equals(<span class="string">""</span>)) &#123;</div><div class="line">                    System.out.println(errortext);</div><div class="line">                    <span class="comment">//自定义错误异常</span></div><div class="line"></div><div class="line">                &#125;</div><div class="line"></div><div class="line">                errorIn.close();</div><div class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125; <span class="keyword">finally</span> &#123;</div><div class="line">                <span class="keyword">if</span> (c != <span class="keyword">null</span>) &#123;</div><div class="line">                    c.destroy();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> FileNotFoundException(<span class="string">"找不到cmd批处理文件！"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>如果编译失败时，我们就能从<code>errortext</code>中拿到编译失败提示：<br><img src="index_files/_u7F16_u8BD1_u5931_u8D25.png" alt=""></p>
+<hr>
+<h3 id="运行exe文件"><a href="#运行exe文件" class="headerlink" title="运行exe文件"></a>运行exe文件</h3><p>上面一小节已经介绍了，如何编译一个C源文件。对一个编译功能来说，我们只要得到他的错误提示就行了，所以只是一直读取进程的错误信息。但运行一个<code>exe</code>文件时，我们不仅要往进程中输入参数、读取进程的标准输出和错误输出。现在，我们就要了解到进程的<code>waitFor()</code>函数。</p>
+<p><strong>通过查看JDK帮助文档</strong>，我们可以得知：</p>
+<h4 id="1-waitFor"><a href="#1-waitFor" class="headerlink" title="1. waitFor"></a>1. waitFor</h4><p><pre>public abstract int <strong>waitFor</strong>()<br>                     throws [InterruptedException]</pre></p>
+<dd>导致当前线程等待，如有必要，一直要等到由该 <code>Process</code> 对象表示的进程已经终止。如果已终止该子进程，此方法立即返回。如果没有终止该子进程，调用的线程将被阻塞，直到退出子进程。</dd><br><dt><strong>返回：</strong></dt><br><dd>进程的出口值。根据惯例，<code>0</code> 表示正常终止。</dd><br><dt><strong>抛出：</strong></dt><br><dd><code>[InterruptedException]</code> - 如果当前线程在等待时被另一线程中断，则停止等待，抛出 [<code>InterruptedException</code>]。</dd>
+
+<h4 id="2-死锁情况"><a href="#2-死锁情况" class="headerlink" title="2. 死锁情况"></a>2. 死锁情况</h4><p>同时，我通过查阅资料了解到：因为本地的系统对标准输入和输出所提供的缓冲池有效，所以错误的对标准输出快速的写入和从标准输入快速的读入都有可能造成子进程的所，甚至死锁。<br>当<code>Runtime</code>对象调用<code>exec()</code>后，JVM会启动一个子进程，该进程会与JVM进程建立三个管道连接：标准输入，标准输出和标准错误流。假设该程序不断在向标准输出流和标准错误流写数据，而JVM不读取的话，当缓冲区满之后将无法继续写入数据，最终造成阻塞在<code>waitFor()</code>这里。<br>为了避免这种情况的发生，我在执行<code>exe</code>文件的一个进程启动四条线程，分别对标准输入、标准输出、标准错误流进行读写，还有一个线程进行时间的控制。</p>
+<p><strong>代码如下：</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div></pre></td><td class="code"><pre><div class="line">    <span class="keyword">static</span> Process p;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 过 Runtime 调用运行 exe 文件</div><div class="line">     * <span class="doctag">@param</span> filePath exe 文件绝对路径</div><div class="line">     * <span class="doctag">@param</span> inputString 程序读取数据</div><div class="line">     * <span class="doctag">@throws</span> InterruptedException</div><div class="line">     * <span class="doctag">@throws</span> FileNotFoundException</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">openApplication</span><span class="params">(String filePath, <span class="keyword">final</span> String inputString)</span> <span class="keyword">throws</span> InterruptedException, FileNotFoundException </span>&#123;</div><div class="line">        File file = <span class="keyword">new</span> File(filePath);</div><div class="line">        <span class="keyword">if</span>(!file.exists())&#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> FileNotFoundException(<span class="string">"找不到exe文件！"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            p = Runtime.getRuntime().exec(filePath);</div><div class="line">            <span class="comment">//exe程序数据输出流，相当于进程标准输入流</span></div><div class="line">            <span class="keyword">final</span> BufferedInputStream output = <span class="keyword">new</span> BufferedInputStream(p.getInputStream());</div><div class="line">            <span class="comment">//exe程序数据输入流</span></div><div class="line">            <span class="keyword">final</span> BufferedOutputStream input = <span class="keyword">new</span> BufferedOutputStream(p.getOutputStream());</div><div class="line">            <span class="comment">//exe程序错误输出流</span></div><div class="line">            <span class="keyword">final</span> BufferedInputStream errorOutput = <span class="keyword">new</span> BufferedInputStream(p.getErrorStream());</div><div class="line">            <span class="keyword">final</span> StringBuffer outputText = <span class="keyword">new</span> StringBuffer(<span class="string">"获得信息是: \n"</span>);</div><div class="line">            <span class="keyword">final</span> StringBuffer errorText = <span class="keyword">new</span> StringBuffer(<span class="string">"错误信息是：\n"</span>);</div><div class="line"></div><div class="line">            <span class="comment">/**</span></div><div class="line">             * 向线程进行输入</div><div class="line">             */</div><div class="line">            <span class="keyword">new</span> Thread()&#123;</div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">                    <span class="keyword">try</span> &#123;</div><div class="line">                        System.out.println(<span class="string">"执行输入！\n"</span>);</div><div class="line">                        <span class="comment">//将用户输入数据写入</span></div><div class="line">                        input.write(inputString.getBytes());</div><div class="line">                        input.flush();<span class="comment">//清空存缓</span></div><div class="line">                        System.out.println(<span class="string">"----\n读入完毕\n---\n"</span>);</div><div class="line">                    &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">                        e.printStackTrace();</div><div class="line">                    &#125; <span class="keyword">finally</span> &#123;</div><div class="line">                        <span class="keyword">if</span>(input != <span class="keyword">null</span>) &#123;</div><div class="line">                            <span class="keyword">try</span> &#123;</div><div class="line">                                input.close();</div><div class="line">                            &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">                                e.printStackTrace();</div><div class="line">                            &#125;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;.start();</div><div class="line"></div><div class="line">            <span class="comment">/**</span></div><div class="line">             * 获得输出的线程</div><div class="line">             */</div><div class="line">            <span class="keyword">new</span> Thread()&#123;</div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">                    <span class="keyword">int</span> ch;</div><div class="line">                    <span class="keyword">try</span> &#123;</div><div class="line">                        System.out.println(<span class="string">"执行输出！\n"</span>);</div><div class="line">                        <span class="comment">//不断获取用户输出</span></div><div class="line">                        <span class="keyword">while</span> ((ch = output.read()) != -<span class="number">1</span>) &#123;</div><div class="line">                            outputText.append((<span class="keyword">char</span>) ch);</div><div class="line">                        &#125;</div><div class="line">                    &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">                        e.printStackTrace();</div><div class="line">                    &#125; <span class="keyword">finally</span> &#123;</div><div class="line">                        <span class="keyword">if</span> (output != <span class="keyword">null</span>)&#123;</div><div class="line">                            <span class="keyword">try</span> &#123;</div><div class="line">                                output.close();</div><div class="line">                            &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">                                e.printStackTrace();</div><div class="line">                            &#125;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;.start();</div><div class="line"></div><div class="line">            <span class="comment">/**</span></div><div class="line">             * 获得进程的错误提示</div><div class="line">             */</div><div class="line">            <span class="keyword">new</span> Thread()&#123;</div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">                    <span class="keyword">int</span> ch;</div><div class="line">                    <span class="keyword">try</span> &#123;</div><div class="line">                        System.out.println(<span class="string">"执行错误输出！\n"</span>);</div><div class="line">                        <span class="comment">//不断获取错误输出</span></div><div class="line">                        <span class="keyword">while</span> ((ch = errorOutput.read()) != -<span class="number">1</span>) &#123;</div><div class="line">                            System.out.println((<span class="keyword">char</span>) ch);</div><div class="line">                            errorText.append((<span class="keyword">char</span>) ch);</div><div class="line">                        &#125;</div><div class="line">                    &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">                        e.printStackTrace();</div><div class="line">                    &#125; <span class="keyword">finally</span> &#123;</div><div class="line">                        <span class="keyword">if</span>(errorOutput != <span class="keyword">null</span>)&#123;</div><div class="line">                            <span class="keyword">try</span> &#123;</div><div class="line">                                errorOutput.close();</div><div class="line">                            &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">                                e.printStackTrace();</div><div class="line">                            &#125;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;.start();</div><div class="line"></div><div class="line"></div><div class="line">            <span class="comment">/**</span></div><div class="line">             * 控制时间的进程</div><div class="line">             */</div><div class="line">            Thread timeController = <span class="keyword">new</span> Thread()&#123;</div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">                    <span class="keyword">try</span> &#123;</div><div class="line">                        System.out.println(<span class="string">"执行时间控制！\n"</span>);</div><div class="line">                        Thread.sleep(<span class="number">5000</span>); <span class="comment">//限制运行时间</span></div><div class="line">                        <span class="comment">//加入错误提示信息</span></div><div class="line">                        errorText.append(<span class="string">"\n运行时间过长！\n"</span>);</div><div class="line">                        p.destroy();</div><div class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                        e.printStackTrace();</div><div class="line">                    &#125; <span class="keyword">finally</span> &#123;</div><div class="line">                        <span class="keyword">if</span>(p != <span class="keyword">null</span>) &#123;</div><div class="line">                            p.destroy();</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;;</div><div class="line">            timeController.start();</div><div class="line"></div><div class="line">            SimpleDateFormat df = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);<span class="comment">//设置日期格式</span></div><div class="line">            <span class="comment">//记录执行时间</span></div><div class="line">            System.out.println(<span class="string">"\n开始执行时间："</span>+df.format(<span class="keyword">new</span> Date()));<span class="comment">// new Date()为获取当前系统时间</span></div><div class="line">            <span class="comment">//一直等待直到“启动成功”</span></div><div class="line">            <span class="keyword">int</span>   retval   =   p.waitFor();</div><div class="line">            <span class="comment">//waitfor()结束后，关闭时间控制进程</span></div><div class="line">            timeController.stop();</div><div class="line">            <span class="comment">//记录结束时间</span></div><div class="line">            System.out.println(<span class="string">"\n结束执行时间："</span>+df.format(<span class="keyword">new</span> Date()));<span class="comment">// new Date()为获取当前系统时间</span></div><div class="line"></div><div class="line">            System.out.println(outputText);</div><div class="line">            System.out.println(errorText);</div><div class="line">            System.out.println(retval);</div><div class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            <span class="keyword">if</span>(p!=<span class="keyword">null</span>) &#123;</div><div class="line">                p.destroy();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<h2 id="参考案例"><a href="#参考案例" class="headerlink" title="参考案例"></a>参考案例</h2><p><a href="https://github.com/FunriLy/OnlineCompilation" target="_blank" rel="external">https://github.com/FunriLy/OnlineCompilation</a></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
+</div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
+
+</div>
+
+            
+    
+        <a href="http://yoursite.com/2017/02/05/java调用cmd编译C文件(二)/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://yoursite.com/2017/02/05/java调用cmd编译C文件(二)/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/02/05/java调用cmd编译C文件(一)/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    java调用cmd编译(一)
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/02/02/大学有感/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">大学有感</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2017/02/05/java调用cmd编译C文件(二)/" data-title="java调用cmd编译(二)" data-url="http://yoursite.com/2017/02/05/java调用cmd编译C文件(二)/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/02/05/java调用cmd编译C文件(一)/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/其他奇奇怪怪的/">其他奇奇怪怪的</a></p>
+                            <p class="item-title"><a href="/2017/02/05/java调用cmd编译C文件(一)/" class="title">java调用cmd编译(一)</a></p>
+                            <p class="item-date"><time datetime="2017-02-05T02:21:51.000Z" itemprop="datePublished">2017-02-05</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/02/05/java调用cmd编译C文件(二)/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/其他奇奇怪怪的/">其他奇奇怪怪的</a></p>
+                            <p class="item-title"><a href="/2017/02/05/java调用cmd编译C文件(二)/" class="title">java调用cmd编译(二)</a></p>
+                            <p class="item-date"><time datetime="2017-02-05T02:21:51.000Z" itemprop="datePublished">2017-02-05</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/02/02/大学有感/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://FunriLy.github.io/images/picture.jpg)" alt="大学有感" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/随记感悟/">随记感悟</a></p>
+                            <p class="item-title"><a href="/2017/02/02/大学有感/" class="title">大学有感</a></p>
+                            <p class="item-date"><time datetime="2017-02-02T11:35:54.000Z" itemprop="datePublished">2017-02-02</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/其他奇奇怪怪的/">其他奇奇怪怪的</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记感悟/">随记感悟</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/java/" style="font-size: 10px;">java</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 FunriLy<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'funrily'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
