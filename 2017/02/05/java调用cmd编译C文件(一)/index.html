@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>java调用cmd编译(一) | FunriLySpace</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="利用java后台来编译运行C源文件，主要是为了开发一个在线编译网站的准备。这里主要介绍如何编译运行C源文件，其实对于其他语言，道理都是一模一样的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java调用cmd编译(一)">
+<meta property="og:url" content="http://yoursite.com/2017/02/05/java调用cmd编译C文件(一)/index.html">
+<meta property="og:site_name" content="FunriLySpace">
+<meta property="og:description" content="利用java后台来编译运行C源文件，主要是为了开发一个在线编译网站的准备。这里主要介绍如何编译运行C源文件，其实对于其他语言，道理都是一模一样的。">
+<meta property="og:image" content="https://funrily.github.io/images/gcc.jpg">
+<meta property="og:updated_time" content="2017-02-05T02:26:50.441Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java调用cmd编译(一)">
+<meta name="twitter:description" content="利用java后台来编译运行C源文件，主要是为了开发一个在线编译网站的准备。这里主要介绍如何编译运行C源文件，其实对于其他语言，道理都是一模一样的。">
+<meta name="twitter:image" content="https://funrily.github.io/images/gcc.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="FunriLySpace" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/css/images/avatar.png" />
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">FunriLySpace</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">主页</a>
+                
+                    <a class="main-nav-link" href="/archives">目录</a>
+                
+                    <a class="main-nav-link" href="/aboutme">关于我</a>
+                
+                    <a class="main-nav-link" href="/my_works">我的工作</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">主页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">目录</a></td>
+                
+                    <td><a class="main-nav-link" href="/aboutme">关于我</a></td>
+                
+                    <td><a class="main-nav-link" href="/my_works">我的工作</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">FunriLy</h2>
+            <h3 id="title">天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>中国, 广东</span>
+            <a id="follow" target="_blank" href="https://github.com/FunriLy/">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                2
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                1
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/FunriLy/" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="twitter" class=tooltip>
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="facebook" class=tooltip>
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="dribbble" class=tooltip>
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-java调用cmd编译C文件(一)" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            java调用cmd编译(一)
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/02/05/java调用cmd编译C文件(一)/">
+            <time datetime="2017-02-05T02:21:51.000Z" itemprop="datePublished">2017-02-05</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/其他奇奇怪怪的/">其他奇奇怪怪的</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/java/">java</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>利用java后台来编译运行C源文件，主要是为了开发一个在线编译网站的准备。<br>这里主要介绍如何编译运行C源文件，其实对于其他语言，道理都是一模一样的。<br><a id="more"></a></p>
+<h2 id="如何使用Java来编译运行C文件"><a href="#如何使用Java来编译运行C文件" class="headerlink" title="如何使用Java来编译运行C文件"></a>如何使用Java来编译运行C文件</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>码农的小日子过得好好的，指导老师一个兴起要求搞一个自己的在线编译网站，我们这种做小弟的只能老老实实地去搞。还好刚刚结束了考试与比赛，因为各种原因导致原定于寒假开工的项目延迟到下学期了，刚好趁这段空闲的时间来搞一搞。其实，自己感觉搞这个的话也挺好玩的~</p>
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>利用java后台来编译运行C源文件，主要是为了开发一个在线编译网站的准备。<br>这里主要介绍如何编译运行C源文件，其实对于其他语言，道理都是一模一样的。</p>
+<h2 id="前期技术准备"><a href="#前期技术准备" class="headerlink" title="前期技术准备"></a>前期技术准备</h2><h3 id="1-调用cmd编译C文件"><a href="#1-调用cmd编译C文件" class="headerlink" title="1. 调用cmd编译C文件"></a>1. 调用cmd编译C文件</h3><p>先说明一下，我的操作系统是Win10，Linux环境下会有所不同；而编译环境是GCC。</p>
+<ul>
+<li>打开命令行界面并确认GCC可用<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">键盘win + r   （ 这里的r是run的意思）</div><div class="line">输入cmd,回车，你就看到了命令行</div><div class="line">输入gcc -v       --如果返回了结果，那么继续，如果不识别，那么请立刻参考“附录”</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如：<br><img src="https://funrily.github.io/images/gcc.jpg" alt=""></p>
+<ul>
+<li>写好C语言源文件<br>创建test.c文件，输入以下代码：<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"hello world\n"</span>);</div><div class="line">    getchar();</div><div class="line">    rerturn <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>将.c文件放于E盘中，方便操作。</p>
+<ul>
+<li>编译该.c文件<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">E: cd</div><div class="line">gcc test.c -o test</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这里的<code>cd</code>是<code>change directory</code>的意思</p>
+<p>接下来，在E盘中就能找到<code>test.exe</code>文件，双击运行即可。<br>备注：也可通过命令行来运行该文件！</p>
+<ul>
+<li>附录<br>当你输入<code>gcc</code>时，之所以你看到了：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">不是内部或外部命令，也不是可运行的程序或批处理文件。</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>因为你没有在自己的环境变量之中添加<code>gcc.exe</code>的路径。于是系统完全不知道去哪里寻找<code>gcc.exe</code>。<br>关于GCC的安装配置我就不废话了，直接借用CSDN上<code>firefoxbug</code>大神的博文，附上链接<br><a href="http://blog.csdn.net/firefoxbug/article/details/6724876" title="Windows下安装配置GCC编译器" target="_blank" rel="external">Windows下安装配置GCC编译器</a></p>
+<h3 id="2-Java运行命令行"><a href="#2-Java运行命令行" class="headerlink" title="2. Java运行命令行"></a>2. Java运行命令行</h3><p>java的<code>Runtime.getRuntime().exec(string)</code>可以调用执行<code>cmd</code>指令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">cmd /c dir 是执行完dir命令后关闭命令窗口。</div><div class="line"></div><div class="line">cmd /k dir 是执行完dir命令后不关闭命令窗口。</div><div class="line"></div><div class="line">cmd /c start dir 会打开一个新窗口后执行dir指令，原窗口会关闭。</div><div class="line"></div><div class="line">cmd /k start dir 会打开一个新窗口后执行dir指令，原窗口不会关闭。</div><div class="line"></div><div class="line">可以用cmd /?查看帮助信息。</div></pre></td></tr></table></figure></p>
+<p>附上一个简单的调用demo<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        String string = <span class="string">"要执行的cmd语句"</span>;</div><div class="line">        Runtime run = Runtime.getRuntime();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Process process = run.exec(<span class="string">"cmd.exe /k start "</span> + string);</div><div class="line">            <span class="comment">/*</span></div><div class="line">            对进程 process 进行操作</div><div class="line">             */</div><div class="line">            process.destroy();</div><div class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p><strong>关于多条cmd语句的执行问题</strong><br>在许多情况下，只调用一条cmd语句明显不能满足我们的需求，需要多条cmd语句来共同配合使用。<br>关于网上使用<code>&amp;&amp;</code>来连接多条cmd语句的调用使用，<em>本人亲测不成功</em>，也有可能是我的操作有错(可与网上案例一模一样的代码运行不成功我也没办法啊，也考虑过是Windows操作系统的影响)。<br>最后，我是使用了<code>bat</code>批处理文件来解决这个问题的，具体案例请参考我的<strong>开发案例</strong>。</p>
+<p><strong>常见的CMD命令</strong><br>注意：以下命令均由互联网收集而来！！！<br>1. gpedit.msc—–组策略<br>2. sndrec32——-录音机<br>3. Nslookup——-IP地址侦测器<br>4. explorer——-打开资源管理器<br>5. logoff———注销命令<br>6. tsshutdn——-60秒倒计时关机命令<br>7. lusrmgr.msc—-本机用户和组<br>8. services.msc—本地服务设置<br>9. oobe/msoobe /a—-检查XP是否激活<br>10. notepad——–打开记事本<br>11. cleanmgr——-垃圾整理<br>12. net start messenger—-开始信使服务<br>13. compmgmt.msc—计算机管理<br>14. net stop messenger—–停止信使服务<br>15. conf———–启动netmeeting<br>16. dvdplay——–DVD播放器<br>17. charmap——–启动字符映射表<br>18. diskmgmt.msc—磁盘管理实用程序<br>19. calc———–启动计算器<br>20. dfrg.msc——-磁盘碎片整理程序<br>21. chkdsk.exe—–Chkdsk磁盘检查<br>22. devmgmt.msc— 设备管理器<br>23. regsvr32 /u <em>.dll—-停止dll文件运行<br>24. drwtsn32—— 系统医生<br>25. rononce -p —-15秒关机<br>26. dxdiag———检查DirectX信息<br>27. regedt32——-注册表编辑器<br>28. Msconfig.exe—系统配置实用程序<br>29. rsop.msc——-组策略结果集<br>30. mem.exe——–显示内存使用情况<br>31. regedit.exe—-注册表<br>32. winchat——–XP自带局域网聊天<br>33. progman——–程序管理器<br>34. winmsd———系统信息<br>35. perfmon.msc—-计算机性能监测程序<br>36. winver———检查Windows版本<br>37. sfc /scannow—–扫描错误并复原<br>38. taskmgr—–任务管理器（2000／xp／2003<br>39. winver———检查Windows版本<br>40. wmimgmt.msc—-打开windows管理体系结构(WMI)<br>41. wupdmgr——–windows更新程序<br>42. wscript——–windows脚本宿主设置<br>43. write———-写字板<br>44. winmsd———系统信息<br>45. wiaacmgr——-扫描仪和照相机向导<br>46. winchat——–XP自带局域网聊天<br>47. mem.exe——–显示内存使用情况<br>48. Msconfig.exe—系统配置实用程序<br>49. mplayer2——-简易widnows media player<br>50. mspaint——–画图板<br>51. mstsc———-远程桌面连接<br>52. mplayer2——-媒体播放机<br>53. magnify——–放大镜实用程序<br>54. mmc————打开控制台<br>55. mobsync——–同步命令<br>56. dxdiag———检查DirectX信息<br>57. drwtsn32—— 系统医生<br>58. devmgmt.msc— 设备管理器<br>59. dfrg.msc——-磁盘碎片整理程序<br>60. diskmgmt.msc—磁盘管理实用程序<br>61. dcomcnfg——-打开系统组件服务<br>62. ddeshare——-打开DDE共享设置<br>63. dvdplay——–DVD播放器<br>64. net stop messenger—–停止信使服务<br>65. net start messenger—-开始信使服务<br>66. notepad——–打开记事本<br>67. nslookup——-网络管理的工具向导<br>68. ntbackup——-系统备份和还原<br>69. narrator——-屏幕“讲述人”<br>70. ntmsmgr.msc—-移动存储管理器<br>71. ntmsoprq.msc—移动存储管理员操作请求<br>72. netstat -an—-(TC)命令检查接口<br>73. syncapp——–创建一个公文包<br>74. sysedit——–系统配置编辑器<br>75. sigverif——-文件签名验证程序<br>76. sndrec32——-录音机<br>77. shrpubw——–创建共享文件夹<br>78. secpol.msc—–本地安全策略<br>79. syskey———系统加密，一旦加密就不能解开，保护windows xp系统的双重密码<br>80. services.msc—本地服务设置<br>81. Sndvol32——-音量控制程序<br>82. sfc.exe——–系统文件检查器<br>83. sfc /scannow—windows文件保护<br>84. tsshutdn——-60秒倒计时关机命令<br>3. 84. tsshutdn——-60秒倒计时关机命令<br>85. tourstart——xp简介（安装完成后出现的漫游xp程序）<br>86. taskmgr——–任务管理器<br>87. eventvwr——-事件查看器<br>88. eudcedit——-造字程序<br>89. explorer——-打开资源管理器<br>90. packager——-对象包装程序<br>91. perfmon.msc—-计算机性能监测程序<br>92. progman——–程序管理器<br>93. regedit.exe—-注册表<br>94. rsop.msc——-组策略结果集<br>95. regedt32——-注册表编辑器<br>96. rononce -p —-15秒关机<br>97. regsvr32 /u </em>.dll—-停止dll文件运行<br>98. regsvr32 /u zipfldr.dll——取消ZIP支持<br>99. cmd.exe——–CMD命令提示符<br>100. chkdsk.exe—–Chkdsk磁盘检查<br>101. certmgr.msc—-证书管理实用程序<br>102. calc———–启动计算器<br>103. charmap——–启动字符映射表<br>104. cliconfg——-SQL SERVER 客户端网络实用程序<br>105. Clipbrd——–剪贴板查看器<br>106. conf———–启动netmeeting<br>107. compmgmt.msc—计算机管理<br>108. cleanmgr——-垃圾整理<br>109. ciadv.msc——索引服务程序<br>110. osk————打开屏幕键盘<br>111. odbcad32——-ODBC数据源管理器<br>112. oobe/msoobe /a—-检查XP是否激活<br>113. lusrmgr.msc—-本机用户和组<br>114. logoff———注销命令<br>115. iexpress——-木马捆绑工具，系统自带<br>116. Nslookup——-IP地址侦测器<br>117. fsmgmt.msc—–共享文件夹管理器<br>118. utilman——–辅助工具管理器<br>119. gpedit.msc—–组策略<br>120. explorer——-打开资源管理器</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
+</div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
+
+</div>
+
+            
+    
+        <a href="http://yoursite.com/2017/02/05/java调用cmd编译C文件(一)/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://yoursite.com/2017/02/05/java调用cmd编译C文件(一)/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/02/02/大学有感/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">大学有感</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2017/02/05/java调用cmd编译C文件(一)/" data-title="java调用cmd编译(一)" data-url="http://yoursite.com/2017/02/05/java调用cmd编译C文件(一)/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/02/05/java调用cmd编译C文件(一)/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/其他奇奇怪怪的/">其他奇奇怪怪的</a></p>
+                            <p class="item-title"><a href="/2017/02/05/java调用cmd编译C文件(一)/" class="title">java调用cmd编译(一)</a></p>
+                            <p class="item-date"><time datetime="2017-02-05T02:21:51.000Z" itemprop="datePublished">2017-02-05</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/02/02/大学有感/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://FunriLy.github.io/images/picture.jpg)" alt="大学有感" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/随记感悟/">随记感悟</a></p>
+                            <p class="item-title"><a href="/2017/02/02/大学有感/" class="title">大学有感</a></p>
+                            <p class="item-date"><time datetime="2017-02-02T11:35:54.000Z" itemprop="datePublished">2017-02-02</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/其他奇奇怪怪的/">其他奇奇怪怪的</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记感悟/">随记感悟</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/java/" style="font-size: 10px;">java</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 FunriLy<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'funrily'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
