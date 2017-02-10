@@ -3,18 +3,18 @@
 <head>
     <meta charset="utf-8">
     
-    <title>java调用cmd编译(二) | FunriLySpace</title>
+    <title>初学 Spring Cloud | FunriLySpace</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="在SpringBoot的坑还没填完的情况下，我又迫不及待地开新坑了。主要是寒假即将结束了，到时又得忙于各种各样的事情……留个坑给自己应该就会惦记着它，再慢慢地补上…………………………SpringCloud,我来啦hhhhhhhh~">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java调用cmd编译(二)">
+<meta property="og:title" content="初学 Spring Cloud">
 <meta property="og:url" content="https://zggdczfr.cn/2017/02/10/初学Spring Cloud/index.html">
 <meta property="og:site_name" content="FunriLySpace">
 <meta property="og:description" content="在SpringBoot的坑还没填完的情况下，我又迫不及待地开新坑了。主要是寒假即将结束了，到时又得忙于各种各样的事情……留个坑给自己应该就会惦记着它，再慢慢地补上…………………………SpringCloud,我来啦hhhhhhhh~">
 <meta property="og:image" content="https://www.tuchuang001.com/images/2017/02/07/picture.jpg">
-<meta property="og:updated_time" content="2017-02-10T03:50:21.961Z">
+<meta property="og:updated_time" content="2017-02-10T03:53:45.692Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java调用cmd编译(二)">
+<meta name="twitter:title" content="初学 Spring Cloud">
 <meta name="twitter:description" content="在SpringBoot的坑还没填完的情况下，我又迫不及待地开新坑了。主要是寒假即将结束了，到时又得忙于各种各样的事情……留个坑给自己应该就会惦记着它，再慢慢地补上…………………………SpringCloud,我来啦hhhhhhhh~">
 <meta name="twitter:image" content="https://www.tuchuang001.com/images/2017/02/07/picture.jpg">
     
@@ -226,7 +226,7 @@ var _hmt = _hmt || [];
                 
     
         <h1 class="article-title" itemprop="name">
-            java调用cmd编译(二)
+            初学 Spring Cloud
         </h1>
     
 
@@ -266,36 +266,34 @@ var _hmt = _hmt || [];
 <h3 id="微服务架构"><a href="#微服务架构" class="headerlink" title="微服务架构"></a>微服务架构</h3><h5 id="微服务架构概念"><a href="#微服务架构概念" class="headerlink" title="微服务架构概念"></a>微服务架构概念</h5><p>“微服务架构”，就是将一个完整的应用从数据存储开始拆分成多个不同的服务，每个服务都能独立部署、独立维护、独立扩展。系统中的各个微服务可被独立部署，各个微服务之间是松耦合的。每个微服务仅关注于完成一件任务并很好地完成该任务。服务与服务间通过诸如RESTful API的方式互相调用。</p>
 <h5 id="关于微服务架构的扯淡"><a href="#关于微服务架构的扯淡" class="headerlink" title="关于微服务架构的扯淡"></a>关于微服务架构的扯淡</h5><p>“微服务架构”，其实这个概念好几年前就已经出现了，而且国外也出现了较为成熟的产品：netflix、dubbo等。听说目前 Spring 开发团队的精力主要集中于 spring boot 和 spring cloud 相关框架的开发。一般情况下，作为一个学习 java 的屌丝，基本上跟上 spring 屌丝的步伐，也就跟上了主流技术。</p>
 <h5 id="微服务架构的选择"><a href="#微服务架构的选择" class="headerlink" title="微服务架构的选择"></a>微服务架构的选择</h5><p>附上大神 程序猿DD(翟永超) 的一篇博客，可以参考一下：<a href="http://blog.didispace.com/microservice-framework/" target="_blank" rel="external">微服务架构的基础框架选择：Spring Cloud还是Dubbo？</a></p>
-<h3 id="服务注册与发现-Eureka"><a href="#服务注册与发现-Eureka" class="headerlink" title="服务注册与发现(Eureka)"></a>服务注册与发现(Eureka)</h3><h4 id="Eureka-Server"><a href="#Eureka-Server" class="headerlink" title="Eureka Server"></a>Eureka Server</h4><ol>
+<h3 id="服务注册与发现-Eureka"><a href="#服务注册与发现-Eureka" class="headerlink" title="服务注册与发现(Eureka)"></a>服务注册与发现(Eureka)</h3><h4 id="Eureka-Server"><a href="#Eureka-Server" class="headerlink" title="Eureka Server"></a>Eureka Server</h4><ul>
 <li>创建一个 Spring Boot 项目。只要引入了Log4j2，便于日志记录。pom.xml依赖文件如下:<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">        <span class="comment">&lt;!-- SpringBoot 框架 --&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-logging<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!--log4j2--&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-log4j2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- eureka-服务 --&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
 </li>
-</ol>
+</ul>
 <p>版本参数:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">    <span class="comment">&lt;!-- 还是比较喜欢稳定的 Brixton 版本 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>Brixton.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--spring boot 的 maven 插件--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<ol>
+<ul>
 <li><p>通过<code>@EnableEurekaServer</code>注解启动一个服务注册中心。直接在SpringBoot启动类加上注解<code>@EnableEurekaServer</code>即可。</p>
 </li>
 <li><p><code>application.properties</code>配置:</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">server.port=8761</div><div class="line">eureka.client.register-with-eureka=false</div><div class="line">eureka.client.fetch-registry=false</div><div class="line">eureka.client.serviceUrl.defaultZone=http://localhost:$&#123;server.port&#125;/eureka/</div></pre></td></tr></table></figure>
 </li>
-</ol>
+</ul>
 <p>同时，简要说明一下这些配置项：<br><code>eureka.client.registerWithEureka</code> ：表示是否将自己注册到Eureka Server，默认为true。由于当前这个应用就是Eureka Server，故而设为false。<br><code>eureka.client.fetchRegistry</code> ：表示是否从Eureka Server获取注册信息，默认为true。因为这是一个单点的Eureka Server，不需要同步其他的Eureka Server节点的数据，故而设为false。<br><code>eureka.client.serviceUrl.defaultZone</code> ：设置与Eureka Server交互的地址，查询服务和注册服务都需要依赖这个地址。默认是<code>http://localhost:8761/eureka</code> ；多个地址可使用 , 分隔。</p>
-<ol>
+<ul>
 <li>启动工程，访问 <a href="http://localhost:8761/" target="_blank" rel="external">http://localhost:8761/</a> 。<br>如图所示:<br><img src="https://www.tuchuang001.com/images/2017/02/10/server.jpg" alt=""></li>
-</ol>
-<h4 id="Eureka-Client"><a href="#Eureka-Client" class="headerlink" title="Eureka Client"></a>Eureka Client</h4><ol>
+</ul>
+<h4 id="Eureka-Client"><a href="#Eureka-Client" class="headerlink" title="Eureka Client"></a>Eureka Client</h4><ul>
 <li><p>创建一个 Spring Boot 项目。基本上与上一个工程无异，pom.xml需要修改了一个依赖。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">        <span class="comment">&lt;!-- eureka-服务 --&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-eureka<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
 </li>
 <li><p>通过<code>@EnableDiscoveryClient</code>注解启动一个服务注册中心。直接在SpringBoot启动类加上注解<code>@EnableDiscoveryClient</code>即可。同时，Eureka Client 提供的服务与一般 Spring Boot 项目是一样的。</p>
 </li>
-<li><p><code>application.properties</code>配置:</p>
+<li><p><code>application.properties</code>配置:<br>这些配置参数还是比较容易理解的。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># eureka client 配置</div><div class="line">spring.application.name=service0</div><div class="line">server.port=1111</div><div class="line">eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/</div></pre></td></tr></table></figure>
 </li>
-</ol>
-<p>这些配置参数比较容易理解的。</p>
-<ol>
-<li>启动两个工程，并访问 Eureka Server 中心  <a href="http://localhost:8761/" target="_blank" rel="external">http://localhost:8761/</a> 。<br>如图所示:<br><img src="https://www.tuchuang001.com/images/2017/02/10/client.jpg" alt=""></li>
-</ol>
+<li><p>启动两个工程，并访问 Eureka Server 中心  <a href="http://localhost:8761/" target="_blank" rel="external">http://localhost:8761/</a> 。<br>如图所示:<br><img src="https://www.tuchuang001.com/images/2017/02/10/client.jpg" alt=""></p>
+</li>
+</ul>
 <h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><p>个人参考项目 : <a href="https://github.com/FunriLy/springcloud-study/tree/master/%E6%A1%88%E4%BE%8B1" target="_blank" rel="external">https://github.com/FunriLy/springcloud-study/tree/master/%E6%A1%88%E4%BE%8B1</a></p>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
 <li>(Spring Cloud Netflix) <a href="https://springcloud.cc/spring-cloud-netflix-zhcn.html" target="_blank" rel="external">https://springcloud.cc/spring-cloud-netflix-zhcn.html</a></li>
@@ -391,7 +389,7 @@ var _hmt = _hmt || [];
     <section id="comments">
     
         
-    <div class="ds-thread" data-thread-key="2017/02/10/初学Spring Cloud/" data-title="java调用cmd编译(二)" data-url="https://zggdczfr.cn/2017/02/10/初学Spring Cloud/"></div>
+    <div class="ds-thread" data-thread-key="2017/02/10/初学Spring Cloud/" data-title="初学 Spring Cloud" data-url="https://zggdczfr.cn/2017/02/10/初学Spring Cloud/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
@@ -449,7 +447,7 @@ var _hmt = _hmt || [];
                             <a href="/2017/02/10/初学Spring Cloud/" class="thumbnail">
     
     
-        <span style="background-image:url(https://www.tuchuang001.com/images/2017/02/07/picture.jpg)" alt="java调用cmd编译(二)" class="thumbnail-image"></span>
+        <span style="background-image:url(https://www.tuchuang001.com/images/2017/02/07/picture.jpg)" alt="初学 Spring Cloud" class="thumbnail-image"></span>
     
 </a>
 
@@ -457,7 +455,7 @@ var _hmt = _hmt || [];
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/spring-cloud/">spring cloud</a></p>
-                            <p class="item-title"><a href="/2017/02/10/初学Spring Cloud/" class="title">java调用cmd编译(二)</a></p>
+                            <p class="item-title"><a href="/2017/02/10/初学Spring Cloud/" class="title">初学 Spring Cloud</a></p>
                             <p class="item-date"><time datetime="2017-02-10T02:44:20.000Z" itemprop="datePublished">2017-02-10</time></p>
                         </div>
                     </li>
