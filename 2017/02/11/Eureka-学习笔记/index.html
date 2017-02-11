@@ -3,20 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>初学 Spring Cloud | FunriLySpace</title>
+    <title>Eureka 学习笔记 | FunriLySpace</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="在SpringBoot的坑还没填完的情况下，我又迫不及待地开新坑了。主要是寒假即将结束了，到时又得忙于各种各样的事情……留个坑给自己应该就会惦记着它，再慢慢地补上…………………………SpringCloud,我来啦hhhhhhhh~">
+    <meta name="description" content="Eureka是Netflix开发的服务发现组件，本身是一个基于REST的服务。Spring Cloud将它集成在其子项目spring-cloud-netflix中，以实现Spring Cloud的服务发现功能。在Spring Cloud中，将会使用 Eureka 作为发现服务，所以了解 Eureka 是非常重要的。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="初学 Spring Cloud">
-<meta property="og:url" content="https://zggdczfr.cn/2017/02/10/初学Spring Cloud/index.html">
+<meta property="og:title" content="Eureka 学习笔记">
+<meta property="og:url" content="https://zggdczfr.cn/2017/02/11/Eureka-学习笔记/index.html">
 <meta property="og:site_name" content="FunriLySpace">
-<meta property="og:description" content="在SpringBoot的坑还没填完的情况下，我又迫不及待地开新坑了。主要是寒假即将结束了，到时又得忙于各种各样的事情……留个坑给自己应该就会惦记着它，再慢慢地补上…………………………SpringCloud,我来啦hhhhhhhh~">
-<meta property="og:image" content="https://www.tuchuang001.com/images/2017/02/07/picture.jpg">
-<meta property="og:updated_time" content="2017-02-10T03:55:42.298Z">
+<meta property="og:description" content="Eureka是Netflix开发的服务发现组件，本身是一个基于REST的服务。Spring Cloud将它集成在其子项目spring-cloud-netflix中，以实现Spring Cloud的服务发现功能。在Spring Cloud中，将会使用 Eureka 作为发现服务，所以了解 Eureka 是非常重要的。">
+<meta property="og:image" content="https://www.tuchuang001.com/images/2017/02/11/eureka.png">
+<meta property="og:updated_time" content="2017-02-11T08:51:05.264Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="初学 Spring Cloud">
-<meta name="twitter:description" content="在SpringBoot的坑还没填完的情况下，我又迫不及待地开新坑了。主要是寒假即将结束了，到时又得忙于各种各样的事情……留个坑给自己应该就会惦记着它，再慢慢地补上…………………………SpringCloud,我来啦hhhhhhhh~">
-<meta name="twitter:image" content="https://www.tuchuang001.com/images/2017/02/07/picture.jpg">
+<meta name="twitter:title" content="Eureka 学习笔记">
+<meta name="twitter:description" content="Eureka是Netflix开发的服务发现组件，本身是一个基于REST的服务。Spring Cloud将它集成在其子项目spring-cloud-netflix中，以实现Spring Cloud的服务发现功能。在Spring Cloud中，将会使用 Eureka 作为发现服务，所以了解 Eureka 是非常重要的。">
+<meta name="twitter:image" content="https://www.tuchuang001.com/images/2017/02/11/eureka.png">
     
 
     
@@ -218,7 +218,7 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main"><article id="post-初学Spring Cloud" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-Eureka-学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -226,7 +226,7 @@ var _hmt = _hmt || [];
                 
     
         <h1 class="article-title" itemprop="name">
-            初学 Spring Cloud
+            Eureka 学习笔记
         </h1>
     
 
@@ -235,8 +235,8 @@ var _hmt = _hmt || [];
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/02/10/初学Spring Cloud/">
-            <time datetime="2017-02-10T02:44:20.000Z" itemprop="datePublished">2017-02-10</time>
+        <a href="/2017/02/11/Eureka-学习笔记/">
+            <time datetime="2017-02-11T08:48:20.000Z" itemprop="datePublished">2017-02-11</time>
         </a>
     </div>
 
@@ -250,7 +250,7 @@ var _hmt = _hmt || [];
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/spring-cloud/">spring cloud</a>
+        <a class="tag-link" href="/tags/spring-cloud-eurake/">spring cloud, eurake</a>
     </div>
 
                     </div>
@@ -261,42 +261,41 @@ var _hmt = _hmt || [];
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>在SpringBoot的坑还没填完的情况下，我又迫不及待地开新坑了。主要是寒假即将结束了，到时又得忙于各种各样的事情……留个坑给自己应该就会惦记着它，再慢慢地补上…………………………SpringCloud,我来啦hhhhhhhh~<br><a id="more"></a></p>
-<h2 id="初学SpringCloud"><a href="#初学SpringCloud" class="headerlink" title="初学SpringCloud"></a>初学SpringCloud</h2><h3 id="SpringCloud-介绍"><a href="#SpringCloud-介绍" class="headerlink" title="SpringCloud 介绍"></a>SpringCloud 介绍</h3><p>Spring Cloud是一个基于Spring Boot实现的云应用开发工具(就是说，接触Spring Cloud之前需要了解一下Spring Boot)。归结起来，Spring Cloud 是一个微服务工具包，为开发者提供了在分布式系统的配置管理、服务发现、断路器、智能路由、微代理、控制总线等许多开发工具包。<br>按照官方的说法就是，Spring Cloud 为开发者提供了在<strong>分布式系统</strong>操作的工具。而且容易上手，可以进行快速开发。</p>
-<h3 id="微服务架构"><a href="#微服务架构" class="headerlink" title="微服务架构"></a>微服务架构</h3><h5 id="微服务架构概念"><a href="#微服务架构概念" class="headerlink" title="微服务架构概念"></a>微服务架构概念</h5><p>“微服务架构”，就是将一个完整的应用从数据存储开始拆分成多个不同的服务，每个服务都能独立部署、独立维护、独立扩展。系统中的各个微服务可被独立部署，各个微服务之间是松耦合的。每个微服务仅关注于完成一件任务并很好地完成该任务。服务与服务间通过诸如RESTful API的方式互相调用。</p>
-<h5 id="关于微服务架构的扯淡"><a href="#关于微服务架构的扯淡" class="headerlink" title="关于微服务架构的扯淡"></a>关于微服务架构的扯淡</h5><p>“微服务架构”，其实这个概念好几年前就已经出现了，而且国外也出现了较为成熟的产品：netflix、dubbo等。听说目前 Spring 开发团队的精力主要集中于 spring boot 和 spring cloud 相关框架的开发。一般情况下，作为一个学习 java 的屌丝，基本上跟上 spring 屌丝的步伐，也就跟上了主流技术。</p>
-<h5 id="微服务架构的选择"><a href="#微服务架构的选择" class="headerlink" title="微服务架构的选择"></a>微服务架构的选择</h5><p>附上大神 程序猿DD(翟永超) 的一篇博客，可以参考一下：<a href="http://blog.didispace.com/microservice-framework/" target="_blank" rel="external">微服务架构的基础框架选择：Spring Cloud还是Dubbo？</a></p>
-<h2 id="服务注册与发现-Eureka"><a href="#服务注册与发现-Eureka" class="headerlink" title="服务注册与发现(Eureka)"></a>服务注册与发现(Eureka)</h2><h3 id="Eureka-Server"><a href="#Eureka-Server" class="headerlink" title="Eureka Server"></a>Eureka Server</h3><ul>
-<li>创建一个 Spring Boot 项目。只要引入了Log4j2，便于日志记录。pom.xml依赖文件如下:<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">        <span class="comment">&lt;!-- SpringBoot 框架 --&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-logging<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!--log4j2--&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-log4j2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- eureka-服务 --&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
+            <p>Eureka是Netflix开发的服务发现组件，本身是一个基于REST的服务。Spring Cloud将它集成在其子项目spring-cloud-netflix中，以实现Spring Cloud的服务发现功能。<br>在Spring Cloud中，将会使用 Eureka 作为发现服务，所以了解 Eureka 是非常重要的。<br><a id="more"></a></p>
+<h2 id="关于-Eureka-的学习笔记"><a href="#关于-Eureka-的学习笔记" class="headerlink" title="关于 Eureka 的学习笔记"></a>关于 Eureka 的学习笔记</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Eureka是Netflix开发的服务发现组件，本身是一个基于REST的服务。Spring Cloud将它集成在其子项目spring-cloud-netflix中，以实现Spring Cloud的服务发现功能。<br>在Spring Cloud中，将会使用 Eureka 作为发现服务，所以了解 Eureka 是非常重要的。因此做了一下翻译以及学习笔记记录。<br>Eureka的Github：<a href="https://github.com/Netflix/Eureka" target="_blank" rel="external">https://github.com/Netflix/Eureka</a></p>
+<h3 id="Eureka-笔记"><a href="#Eureka-笔记" class="headerlink" title="Eureka 笔记"></a>Eureka 笔记</h3><h4 id="什么是-Eureka？"><a href="#什么是-Eureka？" class="headerlink" title="什么是 Eureka？"></a>什么是 Eureka？</h4><p>Eureka 是基于 REST(Representational State Transfer)服务。主要用于AWS云中的<strong><em>定位/发现服务</em></strong>，从而实现对于中间层服务器的负载均衡(Load Balance)和故障切换(failover)。<br>同时，Eureka 还提供了一个基于JAVA的客户端组件(Eurake Client)，<strong><em>便于与Eureka Server进行交互</em></strong>。在客户端中，同样内置了负载均衡，用于执行基本的负载均衡轮询制度。<br>而 Netflix 将它们集合成一个更加负载的负载均衡器，通过对流量、资源使用等因素，提供了更加合理的加权负载均衡策略服务。Eureka 具有心跳检测、健康检查和客户端缓存等多种机制提高了服务系统的灵活性。</p>
+<h4 id="什么是AWS云？"><a href="#什么是AWS云？" class="headerlink" title="什么是AWS云？"></a>什么是AWS云？</h4><p>对于AWS云，可以参考一下这篇博文 <a href="http://blog.csdn.net/awschina/article/details/17639191" target="_blank" rel="external">http://blog.csdn.net/awschina/article/details/17639191</a><br>感觉 Eureka 就是为了提供对于 AWS云服务 的补充(中间层负载均衡)。</p>
+<h4 id="什么是中间层-Middle-Tier-？"><a href="#什么是中间层-Middle-Tier-？" class="headerlink" title="什么是中间层(Middle Tier)？"></a>什么是中间层(Middle Tier)？</h4><p>上面老是提到了中间层(Middle Tier)。中间层 (Middle Tier)也称作“应用程序服务器层或应用服务层”，是用户接口或 Web 客户端与数据库之间的逻辑层。典型情况下 Web 服务器位于该层，业务对象在此实例化。(<strong>来源于百度百科</strong>)</p>
+<h4 id="Eureka-目的-优点"><a href="#Eureka-目的-优点" class="headerlink" title="Eureka 目的/优点"></a>Eureka 目的/优点</h4><ul>
+<li>中间层的负载均衡</li>
+<li>使用 Netflix 的红/黑部署(red/black deployments)，使开发者更加容易实现云部署</li>
+<li>对于 cassandra deployments，方便于对实例化后的对象维护</li>
+<li>利用 memcached 提供缓存服务(<em>Memcached</em> 是一个高性能的分布式内存对象缓存系统，用于动态Web应用以减轻数据库负载。)。</li>
+<li>可配置性/动态配置。使用Eureka，可以即时添加或删除群集节点；Eureka使用archaius(Netflix开源的配置管理类):如果你有一个配置源实现，这些配置可以进行动态调整应用。</li>
 </ul>
-<p>版本参数:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">    <span class="comment">&lt;!-- 还是比较喜欢稳定的 Brixton 版本 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>Brixton.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--spring boot 的 maven 插件--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h4 id="Eureka-最大的特性"><a href="#Eureka-最大的特性" class="headerlink" title="Eureka 最大的特性"></a>Eureka 最大的特性</h4><p>Eureka 集群服务具有极大的”弹性”(<em>Resilience</em>)。这个是我认为它最大的特点。</p>
 <ul>
-<li><p>通过<code>@EnableEurekaServer</code>注解启动一个服务注册中心。直接在SpringBoot启动类加上注解<code>@EnableEurekaServer</code>即可。</p>
-</li>
-<li><p><code>application.properties</code>配置:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">server.port=8761</div><div class="line">eureka.client.register-with-eureka=false</div><div class="line">eureka.client.fetch-registry=false</div><div class="line">eureka.client.serviceUrl.defaultZone=http://localhost:$&#123;server.port&#125;/eureka/</div></pre></td></tr></table></figure>
-</li>
+<li>Eureka Client 处理一个或多个Eureka服务器的故障。 由于 Eureka Client 在其中具有注册表缓存信息，因此即使所有 Eureka Servers 都关闭，它们还是可以很好地运行。</li>
+<li>Eureka Servers 即使在其他 Eureka 挂了也具有极大的”弹性”。既是是在 Client 与 Server 的网络分裂(network partition)期间，Eureka Server 具有的内部弹性特性也能防止大规模服务中断。</li>
 </ul>
-<p>同时，简要说明一下这些配置项：<br><code>eureka.client.registerWithEureka</code> ：表示是否将自己注册到Eureka Server，默认为true。由于当前这个应用就是Eureka Server，故而设为false。<br><code>eureka.client.fetchRegistry</code> ：表示是否从Eureka Server获取注册信息，默认为true。因为这是一个单点的Eureka Server，不需要同步其他的Eureka Server节点的数据，故而设为false。<br><code>eureka.client.serviceUrl.defaultZone</code> ：设置与Eureka Server交互的地址，查询服务和注册服务都需要依赖这个地址。默认是<code>http://localhost:8761/eureka</code> ；多个地址可使用 , 分隔。</p>
+<h4 id="Eureka-Server-与-Client-之间的通信"><a href="#Eureka-Server-与-Client-之间的通信" class="headerlink" title="Eureka Server 与 Client 之间的通信"></a>Eureka Server 与 Client 之间的通信</h4><p>Eureka 只是找到有关客户端与之通信的服务器的信息，但不对通信的协议或方法施加任何限制。通常情况下，我们可以使用 Eureka 获取目标服务器地址，并使用thrift，http(s)或任何其他RPC机制等协议来进行交互通信。</p>
+<h4 id="Eureka-架构"><a href="#Eureka-架构" class="headerlink" title="Eureka 架构"></a>Eureka 架构</h4><p><img src="https://www.tuchuang001.com/images/2017/02/11/eureka.png" alt=""><br>接下来，对其中的名词进行解释：</p>
 <ul>
-<li>启动工程，访问 <a href="http://localhost:8761/" target="_blank" rel="external">http://localhost:8761/</a> 。<br>如图所示:<br><img src="https://www.tuchuang001.com/images/2017/02/10/server.jpg" alt=""></li>
+<li>Application Service 相当于服务提供者</li>
+<li>Application Client 相当于服务消费者</li>
+<li>Make Remote Call，其实就是实现服务的使用</li>
+<li>us-east-1 其实实现了Eurake 集群服务</li>
+<li>us-east-1c、us-east-1d、us-east-1e 就是集群服务中的某个具体实现区域(感觉找不到一个合适的词来解释这种抽象的概念)</li>
 </ul>
-<h3 id="Eureka-Client"><a href="#Eureka-Client" class="headerlink" title="Eureka Client"></a>Eureka Client</h3><ul>
-<li><p>创建一个 Spring Boot 项目。基本上与上一个工程无异，pom.xml需要修改了一个依赖。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">        <span class="comment">&lt;!-- eureka-服务 --&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-eureka<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>通过<code>@EnableDiscoveryClient</code>注解启动一个服务注册中心。直接在SpringBoot启动类加上注解<code>@EnableDiscoveryClient</code>即可。同时，Eureka Client 提供的服务与一般 Spring Boot 项目是一样的。</p>
-</li>
-<li><p><code>application.properties</code>配置:<br>这些配置参数还是比较容易理解的。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># eureka client 配置</div><div class="line">spring.application.name=service0</div><div class="line">server.port=1111</div><div class="line">eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/</div></pre></td></tr></table></figure>
-</li>
-<li><p>启动两个工程，并访问 Eureka Server 中心  <a href="http://localhost:8761/" target="_blank" rel="external">http://localhost:8761/</a> 。<br>如图所示:<br><img src="https://www.tuchuang001.com/images/2017/02/10/client.jpg" alt=""></p>
-</li>
-</ul>
-<h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><p>个人参考项目 : <a href="https://github.com/FunriLy/springcloud-study/tree/master/%E6%A1%88%E4%BE%8B1" target="_blank" rel="external">https://github.com/FunriLy/springcloud-study/tree/master/%E6%A1%88%E4%BE%8B1</a></p>
+<p><strong>Eureka 架构机制</strong><br>我们的 Eureka 集群服务其实就是靠 Server 与 Client 之间的交互来实现的。</p>
+<ol>
+<li>前面说过，Eureka Server 具有服务定位/发现的能力，在各个微服务启动时，会通过Eureka Client向Eureka Server进行注册自己的信息（例如网络信息）。</li>
+<li>一般情况下，微服务启动后，Eureka Client 会周期性向 Eureka Server 发送心跳检测(默认周期为30秒)以注册/更新自己的信息。</li>
+<li>如果 Eureka Server 在一定时间内(默认90秒)没有收到 Eureka Client 的心跳检测，就会注销掉该微服务点。</li>
+<li>同时，Eureka Server 它本身也是 Eureka Client，多个 Eureka Server 通过复制注册表的方法来完成服务注册表的同步从而达到集群的效果</li>
+</ol>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
-<li>(Spring Cloud Netflix) <a href="https://springcloud.cc/spring-cloud-netflix-zhcn.html" target="_blank" rel="external">https://springcloud.cc/spring-cloud-netflix-zhcn.html</a></li>
+<li><a href="https://github.com/Netflix/eureka/wiki" target="_blank" rel="external">https://github.com/Netflix/eureka/wiki</a></li>
 </ul>
 
         
@@ -363,7 +362,7 @@ var _hmt = _hmt || [];
 
             
     
-        <a href="https://zggdczfr.cn/2017/02/10/初学Spring Cloud/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://zggdczfr.cn/2017/02/10/初学Spring Cloud/">评论</a>
+        <a href="https://zggdczfr.cn/2017/02/11/Eureka-学习笔记/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://zggdczfr.cn/2017/02/11/Eureka-学习笔记/">评论</a>
     
 
         </footer>
@@ -372,19 +371,10 @@ var _hmt = _hmt || [];
         
 <nav id="article-nav">
     
-        <a href="/2017/02/11/Eureka-学习笔记/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    Eureka 学习笔记
-                
-            </div>
-        </a>
     
-    
-        <a href="/2017/02/05/java调用cmd编译C文件(一)/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2017/02/10/初学Spring Cloud/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">java调用cmd编译(一)</div>
+            <div class="article-nav-title">初学 Spring Cloud</div>
         </a>
     
 </nav>
@@ -398,7 +388,7 @@ var _hmt = _hmt || [];
     <section id="comments">
     
         
-    <div class="ds-thread" data-thread-key="2017/02/10/初学Spring Cloud/" data-title="初学 Spring Cloud" data-url="https://zggdczfr.cn/2017/02/10/初学Spring Cloud/"></div>
+    <div class="ds-thread" data-thread-key="2017/02/11/Eureka-学习笔记/" data-title="Eureka 学习笔记" data-url="https://zggdczfr.cn/2017/02/11/Eureka-学习笔记/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
