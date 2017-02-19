@@ -3,17 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>归档: 2017 | FunriLySpace</title>
+    <title>断路器 Hystrix | FunriLySpace</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="FunriLySpace">
-<meta property="og:url" content="https://zggdczfr.cn/archives/2017/index.html">
+    <meta name="description" content="Spring Cloud Netflix Hystrix是分布式系统处理超时和错误的机制。当某个微服务发生故障时，通过断路器的故障监控，向调用方返回一个错误响应，而不是长时间的等待。这样就不会使得线程因调用故障服务被长时间占用不释放，避免了故障在分布式系统中的蔓延。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="断路器 Hystrix">
+<meta property="og:url" content="https://zggdczfr.cn/2017/02/19/断路器-Hystrix/index.html">
 <meta property="og:site_name" content="FunriLySpace">
-<meta property="og:description" content="天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。">
+<meta property="og:description" content="Spring Cloud Netflix Hystrix是分布式系统处理超时和错误的机制。当某个微服务发生故障时，通过断路器的故障监控，向调用方返回一个错误响应，而不是长时间的等待。这样就不会使得线程因调用故障服务被长时间占用不释放，避免了故障在分布式系统中的蔓延。">
+<meta property="og:image" content="https://springcloud.cc/images/HystrixGraph.png">
+<meta property="og:updated_time" content="2017-02-19T13:20:46.765Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FunriLySpace">
-<meta name="twitter:description" content="天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。">
+<meta name="twitter:title" content="断路器 Hystrix">
+<meta name="twitter:description" content="Spring Cloud Netflix Hystrix是分布式系统处理超时和错误的机制。当某个微服务发生故障时，通过断路器的故障监控，向调用方返回一个错误响应，而不是长时间的等待。这样就不会使得线程因调用故障服务被长时间占用不释放，避免了故障在分布式系统中的蔓延。">
+<meta name="twitter:image" content="https://springcloud.cc/images/HystrixGraph.png">
     
 
     
@@ -215,25 +218,21 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main"><div class="timeline timeline-wrap">
-    
-            <div class="timeline-row timeline-row-major">
-                <span class="node"><i class="fa fa-calendar"></i></span>
-                <h1 class="title">2017</h1>
-            </div>
+            <section id="main"><article id="post-断路器-Hystrix" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/02/19/断路器-Hystrix/">断路器 Hystrix</a>
+        <h1 class="article-title" itemprop="name">
+            断路器 Hystrix
         </h1>
     
 
-                <div class="article-meta">
-                    
+                
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/2017/02/19/断路器-Hystrix/">
@@ -242,270 +241,202 @@ var _hmt = _hmt || [];
     </div>
 
 
-                    
+                        
     <div class="article-category">
     	<i class="fa fa-folder"></i>
         <a class="article-category-link" href="/categories/spring-cloud/">spring cloud</a>
     </div>
 
-                    
+                        
     <div class="article-tag">
         <i class="fa fa-tag"></i>
         <a class="tag-link" href="/tags/spring-cloud/">spring cloud</a>
     </div>
 
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+                    </div>
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/02/18/Fegin的使用/">Fegin的使用</a>
-        </h1>
-    
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>Spring Cloud Netflix Hystrix是分布式系统处理超时和错误的机制。<br>当某个微服务发生故障时，通过断路器的故障监控，向调用方返回一个错误响应，而不是长时间的等待。这样就不会使得线程因调用故障服务被长时间占用不释放，避免了故障在分布式系统中的蔓延。<br><a id="more"></a></p>
+<h2 id="断路器-Hystrix"><a href="#断路器-Hystrix" class="headerlink" title="断路器 Hystrix"></a>断路器 Hystrix</h2><h3 id="断路器模式-云计算设计模式"><a href="#断路器模式-云计算设计模式" class="headerlink" title="断路器模式 (云计算设计模式)"></a>断路器模式 (云计算设计模式)</h3><p>断路器模式源于Martin Fowler的<a href="http://martinfowler.com/bliki/CircuitBreaker.html" target="_blank" rel="external">Circuit Breaker</a>一文。<br>在分布式环境中，其中的应用程序执行访问远程资源和服务的操作，有可能对这些操作的失败是由于瞬时故障，如慢的网络连接，超时，或者被过度使用的资源或暂时不可用。这些故障一般之后的短时间内纠正自己。<br>所谓的断路器模式，就是当某个微服务发生故障时，通过断路器的故障监控，向调用方返回一个错误响应，而不是长时间的等待。这样就不会使得线程因调用故障服务被长时间占用不释放，避免了故障在分布式系统中的蔓延。（来源于网上资料）</p>
+<h3 id="什么是-Hystrix？"><a href="#什么是-Hystrix？" class="headerlink" title="什么是 Hystrix？"></a>什么是 Hystrix？</h3><p>Spring Cloud Netflix Hystrix是分布式系统处理超时和错误的机制。其服务失效判断阈值为 : 在Hystrix里默认是5秒内20个失败。</p>
+<p>正常的分布式系统架构图(来源于Hystri官方文档)如下 :<br><img src="https://springcloud.cc/images/HystrixGraph.png" alt=""></p>
+<p>若其中一个服务挂掉之后可能会导致其他调用业务服务的线程大量堵塞，最终导致整个系统瘫痪。Hystrix 允许开发人员提供错误提示信息并开启一个路由回调。如图(来源于Hystri官方文档) :<br><img src="https://springcloud.cc/images/HystrixFallback.png" alt=""></p>
+<h3 id="通过-Feign-使用-Hystri"><a href="#通过-Feign-使用-Hystri" class="headerlink" title="通过 Feign 使用 Hystri"></a>通过 Feign 使用 Hystri</h3><p>Feign中已经依赖了Hystrix，所以我们直接调用即可，不必加入 Hystri 依赖。在上一次的 Fegin 工程中使用 Hystri。</p>
+<ul>
+<li><p>创建回调类并实现调用接口类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServiceClientHystrix</span> <span class="keyword">implements</span> <span class="title">ServiceClient</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">printf</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"断路器 : 回调函数"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用<code>@FeignClient</code>注解中的fallback属性指定回调类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="meta">@FeignClient</span>(value = <span class="string">"my-service"</span>, fallback = ServiceClientHystrix.class)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ServiceClient</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/service"</span>)</div><div class="line">    <span class="function">String <span class="title">printf</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>为了能够看到回调效果，我们设置 Hystri 的超时时间为1毫秒。在 <code>application.properties</code>添加属性：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds=1</div></pre></td></tr></table></figure>
+</li>
+<li><p>依次启动”服务注册中心”、”服务提供者”、”服务消费者(Feign版)”，连续多次访问 <a href="http://localhost:2222/test" target="_blank" rel="external">http://localhost:2222/test</a> 。</p>
+</li>
+</ul>
+<h3 id="添加-Hystrix-Dashboard-监控"><a href="#添加-Hystrix-Dashboard-监控" class="headerlink" title="添加 Hystrix Dashboard 监控"></a>添加 Hystrix Dashboard 监控</h3><ul>
+<li><p>添加依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- Hystrix Dashboard 监控 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-hystrix-dashboard<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>在启动类添加启动注解<code>@EnableHystrixDashboard</code></p>
+</li>
+<li><p>再次启动”服务消费者”，访问 <a href="http://localhost:2222/hystrix" target="_blank" rel="external">http://localhost:2222/hystrix</a></p>
+</li>
+<li><p>在URL中输入监控URL : <a href="http://localhost:2222/hystrix.stream" target="_blank" rel="external">http://localhost:2222/hystrix.stream</a> 同时多次访问 <a href="http://localhost:2222/test" target="_blank" rel="external">http://localhost:2222/test</a> 并观察监控仪表板的变化。</p>
+</li>
+</ul>
+<h3 id="发现的问题"><a href="#发现的问题" class="headerlink" title="发现的问题"></a>发现的问题</h3><ul>
+<li>问题描述：Fegin第一次启动请求失败？</li>
+<li>问题原因：首次请求往往会比较慢（Spring的懒加载机制，需要实例化一些类），因此请求时间往往大于 Hystrix 的默认超时时间(1秒)。</li>
+<li>解决方法：延长 Hystrix 的超时时间<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * default 是默认所有请求；具体某个请求则修改 default 为相应的访问即可</div><div class="line"> */</div><div class="line">hystrix.command.<span class="keyword">default</span>.execution.isolation.thread.timeoutInMilliseconds: <span class="number">5000</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a href="https://github.com/Netflix/Hystrix/wiki" target="_blank" rel="external">https://github.com/Netflix/Hystrix/wiki</a></li>
+<li><a href="https://springcloud.cc/spring-cloud-netflix-zhcn.html#true-circuit-breaker-hystrix-clients" target="_blank" rel="external">https://springcloud.cc/spring-cloud-netflix-zhcn.html#true-circuit-breaker-hystrix-clients</a></li>
+<li><a href="http://blog.didispace.com/springcloud3/" target="_blank" rel="external">http://blog.didispace.com/springcloud3/</a></li>
+<li><a href="http://www.itmuch.com/spring-cloud-feign-ribbon-first-request-fail/" target="_blank" rel="external">http://www.itmuch.com/spring-cloud-feign-ribbon-first-request-fail/</a></li>
+</ul>
+<h3 id="个人参考项目"><a href="#个人参考项目" class="headerlink" title="个人参考项目"></a>个人参考项目</h3><p>个人参考项目 : <a href="https://github.com/FunriLy/springcloud-study/tree/master/%E6%A1%88%E4%BE%8B4" target="_blank" rel="external">https://github.com/FunriLy/springcloud-study/tree/master/%E6%A1%88%E4%BE%8B4</a></p>
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/02/18/Fegin的使用/">
-            <time datetime="2017-02-18T13:03:01.000Z" itemprop="datePublished">2017-02-18</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/spring-cloud/">spring cloud</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/spring-cloud/">spring cloud</a>
-    </div>
-
-                </div>
-            </div>
+        
         </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/02/13/使用Ribbon实现客户端的负载均衡/">使用Ribbon实现客户端的负载均衡</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/02/13/使用Ribbon实现客户端的负载均衡/">
-            <time datetime="2017-02-13T10:54:08.000Z" itemprop="datePublished">2017-02-13</time>
-        </a>
-    </div>
+        <footer class="article-footer">
+            <div class="share-container">
 
 
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/spring-cloud/">spring cloud</a>
-    </div>
 
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/spring-cloud/">spring cloud</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/02/11/Eureka-学习笔记/">Eureka 学习笔记</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/02/11/Eureka-学习笔记/">
-            <time datetime="2017-02-11T08:48:20.000Z" itemprop="datePublished">2017-02-11</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/spring-cloud/">spring cloud</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/spring-cloud/">spring cloud</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/02/10/初学Spring Cloud/">初学 Spring Cloud</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/02/10/初学Spring Cloud/">
-            <time datetime="2017-02-10T02:44:20.000Z" itemprop="datePublished">2017-02-10</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/spring-cloud/">spring cloud</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/spring-cloud/">spring cloud</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/02/05/java调用cmd编译C文件(一)/">java调用cmd编译(一)</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/02/05/java调用cmd编译C文件(一)/">
-            <time datetime="2017-02-05T02:21:51.000Z" itemprop="datePublished">2017-02-05</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/其他奇奇怪怪的/">其他奇奇怪怪的</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/java/">java</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/02/05/java调用cmd编译C文件(二)/">java调用cmd编译(二)</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/02/05/java调用cmd编译C文件(二)/">
-            <time datetime="2017-02-05T02:21:51.000Z" itemprop="datePublished">2017-02-05</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/其他奇奇怪怪的/">其他奇奇怪怪的</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/java/">java</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/02/02/大学有感/">大学有感</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/02/02/大学有感/">
-            <time datetime="2017-02-02T11:35:54.000Z" itemprop="datePublished">2017-02-02</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/随记感悟/">随记感悟</a>
-    </div>
-
-                    
-                </div>
-            </div>
-        </div>
-    
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
 </div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
+
+</div>
+
+            
+    
+        <a href="https://zggdczfr.cn/2017/02/19/断路器-Hystrix/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://zggdczfr.cn/2017/02/19/断路器-Hystrix/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/02/18/Fegin的使用/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Fegin的使用</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2017/02/19/断路器-Hystrix/" data-title="断路器 Hystrix" data-url="https://zggdczfr.cn/2017/02/19/断路器-Hystrix/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
 </section>
             
                 <aside id="sidebar">
