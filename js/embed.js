@@ -758,7 +758,7 @@
                         a = s.el = H(et.smiliesTooltip(L));
                     return a.click(i).find("ul.ds-smilies-tabs").delegate("a", "click", function() { s.reset(this.innerHTML) }), a.find(".ds-smilies-container").delegate("img", "click", e), this }, reset: function(e) {
                     function t(t, s) {
-                        var i = 0 === e.indexOf("微博") ? "http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/" + s.replace("_org", "_thumb") : S.STATIC_URL + "/images/smilies/" + s; "WordPress" === e && (t = " " + t + " "), a += '<li><img src="' + i + '" title="' + _(t) + '" /></li>' }
+                        var i = 0 === e.indexOf("微博") ? "https://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/" + s.replace("_org", "_thumb") : S.STATIC_URL + "/images/smilies/" + s; "WordPress" === e && (t = " " + t + " "), a += '<li><img src="' + i + '" title="' + _(t) + '" /></li>' }
                     var s = this.el.find("ul.ds-smilies-tabs");
                     s.find("a.ds-current").removeClass("ds-current"), s.find("a").filter(function() {
                         return this.innerHTML == e }).addClass("ds-current");
