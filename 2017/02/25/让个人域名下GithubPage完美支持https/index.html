@@ -3,19 +3,19 @@
 <head>
     <meta charset="utf-8">
     
-    <title>java调用cmd编译(一) | FunriLySpace</title>
+    <title>让个人域名下GithubPage完美支持https | FunriLySpace</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="利用java后台来编译运行C源文件，主要是为了开发一个在线编译网站的准备。这里主要介绍如何编译运行C源文件，其实对于其他语言，道理都是一模一样的。">
+    <meta name="description" content="欢迎访问完美HTTPS支持的GithubPage个人博客 : https://zggdczfr/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java调用cmd编译(一)">
-<meta property="og:url" content="https://zggdczfr.cn/2017/02/05/java调用cmd编译C文件(一)/index.html">
+<meta property="og:title" content="让个人域名下GithubPage完美支持https">
+<meta property="og:url" content="https://zggdczfr.cn/2017/02/25/让个人域名下GithubPage完美支持https/index.html">
 <meta property="og:site_name" content="FunriLySpace">
-<meta property="og:description" content="利用java后台来编译运行C源文件，主要是为了开发一个在线编译网站的准备。这里主要介绍如何编译运行C源文件，其实对于其他语言，道理都是一模一样的。">
+<meta property="og:description" content="欢迎访问完美HTTPS支持的GithubPage个人博客 : https://zggdczfr/">
 <meta property="og:image" content="https://www.tuchuang001.com/images/2017/02/07/FR.png">
-<meta property="og:updated_time" content="2017-02-18T13:14:23.925Z">
+<meta property="og:updated_time" content="2017-02-25T12:07:24.297Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java调用cmd编译(一)">
-<meta name="twitter:description" content="利用java后台来编译运行C源文件，主要是为了开发一个在线编译网站的准备。这里主要介绍如何编译运行C源文件，其实对于其他语言，道理都是一模一样的。">
+<meta name="twitter:title" content="让个人域名下GithubPage完美支持https">
+<meta name="twitter:description" content="欢迎访问完美HTTPS支持的GithubPage个人博客 : https://zggdczfr/">
 <meta name="twitter:image" content="https://www.tuchuang001.com/images/2017/02/07/FR.png">
     
 
@@ -218,7 +218,7 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main"><article id="post-java调用cmd编译C文件(一)" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-让个人域名下GithubPage完美支持https" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -226,7 +226,7 @@ var _hmt = _hmt || [];
                 
     
         <h1 class="article-title" itemprop="name">
-            java调用cmd编译(一)
+            让个人域名下GithubPage完美支持https
         </h1>
     
 
@@ -235,8 +235,8 @@ var _hmt = _hmt || [];
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/02/05/java调用cmd编译C文件(一)/">
-            <time datetime="2017-02-05T02:21:51.000Z" itemprop="datePublished">2017-02-05</time>
+        <a href="/2017/02/25/让个人域名下GithubPage完美支持https/">
+            <time datetime="2017-02-25T12:04:03.000Z" itemprop="datePublished">2017-02-25</time>
         </a>
     </div>
 
@@ -250,7 +250,7 @@ var _hmt = _hmt || [];
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/java/">java</a>
+        <a class="tag-link" href="/tags/https/">https</a>
     </div>
 
                     </div>
@@ -261,35 +261,55 @@ var _hmt = _hmt || [];
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>利用java后台来编译运行C源文件，主要是为了开发一个在线编译网站的准备。<br>这里主要介绍如何编译运行C源文件，其实对于其他语言，道理都是一模一样的。<br><a id="more"></a></p>
-<h2 id="如何使用Java来编译运行C文件-一"><a href="#如何使用Java来编译运行C文件-一" class="headerlink" title="如何使用Java来编译运行C文件(一)"></a>如何使用Java来编译运行C文件(一)</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>码农的小日子过得好好的，指导老师一个兴起要求搞一个自己的在线编译网站，我们这种做小弟的只能老老实实地去搞。还好刚刚结束了考试与比赛，因为各种原因导致原定于寒假开工的项目延迟到下学期了，刚好趁这段空闲的时间来搞一搞。其实，自己感觉搞这个的话也挺好玩的~</p>
-<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>利用java后台来编译运行C源文件，主要是为了开发一个在线编译网站的准备。<br>这里主要介绍如何编译运行C源文件，其实对于其他语言，道理都是一模一样的。</p>
-<h2 id="前期技术准备"><a href="#前期技术准备" class="headerlink" title="前期技术准备"></a>前期技术准备</h2><h3 id="1-调用cmd编译C文件"><a href="#1-调用cmd编译C文件" class="headerlink" title="1. 调用cmd编译C文件"></a>1. 调用cmd编译C文件</h3><p>先说明一下，我的操作系统是Win10，Linux环境下会有所不同；而编译环境是GCC。</p>
+            <p><strong>欢迎访问完美HTTPS支持的GithubPage个人博客 : <a href="https://zggdczfr/" target="_blank" rel="external">https://zggdczfr/</a> </strong><br><a id="more"></a></p>
+<h2 id="让个人域名下GithubPage完美支持https"><a href="#让个人域名下GithubPage完美支持https" class="headerlink" title="让个人域名下GithubPage完美支持https"></a>让个人域名下GithubPage完美支持https</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近笔记本挂了送去维修，耽误了我的学习计划，就先把月初的一点小技巧发出来充充数……话说，没了笔记本的日子，看书反而更加认真了~<br>遵从我2016年10月时，定下的目标：于2017年开始要坚持写博客。于是，我在GithubPage上搞了个静态博客网站 <a href="https://zggdczfr.cn/">https://zggdczfr.cn/</a> 。作为一个有个性并略有强迫症的程序猿，肯定要给自己的博客弄个个人域名，再配上一把小小的绿锁头。<br>腾讯云专门为大学生推出了服务器和个人域名的优惠政策，鉴于这个域名是去年申请的，虽然不是很有个人特色也只能勉强用着先。</p>
+<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul>
+<li>仓库：Github</li>
+<li>Hexo 博客主题：<a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external">icarus</a></li>
+<li>评论系统：多说</li>
+<li>SSL证书：<a href="https://www.cloudflare.com/" title="CloudFlare" target="_blank" rel="external">CloudFlare</a></li>
+<li>个人域名(腾讯云)：<a href="https://zggdczfr.cn/">https://zggdczfr.cn/</a></li>
+</ul>
+<h3 id="为什么要使用-HTTPS-协议？"><a href="#为什么要使用-HTTPS-协议？" class="headerlink" title="为什么要使用 HTTPS 协议？"></a>为什么要使用 HTTPS 协议？</h3><ul>
+<li>虽然SSL并不是无懈可击的，但是我们应该尽可能提高窃听成本</li>
+<li>加密通讯不应心存侥幸，所有连接都应被加密</li>
+<li>福利： 使用了HTTPS之后，如果网站的访客是从其他已经使用了HTTPS的网站上跳转过来，你就能在Google Analytics中获取更完整的来源信息。</li>
+</ul>
+<p>不过关于最后一点，我不得不吐槽一下”墙”，它导致 Google Analytics 的信息延迟长达一天以上，最后我不得不退而选择 Baidu Analytics。</p>
+<h3 id="在Github上搭建-Hexo-主题博客"><a href="#在Github上搭建-Hexo-主题博客" class="headerlink" title="在Github上搭建 Hexo 主题博客"></a>在Github上搭建 Hexo 主题博客</h3><p>关于这个我就不罗嗦了，网上一大堆教程，分享一篇非常详细的博客(里面包括了GithubPage应用自定义域名) : <a href="https://xuanwo.org/2015/03/26/hexo-intor/" target="_blank" rel="external">https://xuanwo.org/2015/03/26/hexo-intor/</a><br>不过，绑定后我们只能通过<code>http://域名</code>来访问。如果访问<code>https://XXX.github.io/</code>(即原来的域名)将会被重定向(302)到我们的自定义域名。若直接访问<code>https://域名</code>，浏览器会报<code>SSL_DOMAIN_NOT_MATCHED</code>警告。</p>
+<h3 id="CloudFlare-给自己的域名加个-s"><a href="#CloudFlare-给自己的域名加个-s" class="headerlink" title="CloudFlare 给自己的域名加个 s"></a>CloudFlare 给自己的域名加个 s</h3><p>首先，GitHub Pages不支持上传SSL证书。<br>CloudFlare 是一家CDN提供商，它提供了免费的https服务(但不是应用SSL证书)。实现模式就是，用户到CDN服务器的连接为<code>https</code>，而CDN服务器到GithubPage服务器的连接为<code>http</code>，就是在CDN服务器那里加上反向代理。</p>
+<ol>
+<li>注册并登录CloudFlare，并将自己域名下的 name server 修改为 CloudFlare 的 name server。</li>
+<li>在 CloudFlare 的 DNS 设置域名匹配到自己的GithubPage(启用动态DNS加速)。</li>
+<li>在 CloudFlare 的 Crypto 设置 SSL 为 Flexible(等待一定时间实现建立连接后，就可以通过<code>https</code>来访问自己的 GithubPage )。</li>
+<li>在 CloudFlare 的 Page Rules 中设置路由规则。一般情况下，利用<code>Always use https</code>设置两条规则，规则链接分别为<code>http://域名/*</code>与<code>http://域名/</code>(开启<code>https</code>强制跳转)。</li>
+</ol>
+<h3 id="关于评论系统"><a href="#关于评论系统" class="headerlink" title="关于评论系统"></a>关于评论系统</h3><p>如果使用国外的评论系统<code>disqus</code>，这个的确完美支持 https。但，所限于用户限制，也只能舍弃。<br>对于国内的评论系统，主要就是友言(有JS文件支持不了HTTPS引用)，多说(这个默认属性并不支持HTTPS但可以进行改造)。</p>
+<h5 id="对”多说”进行了解"><a href="#对”多说”进行了解" class="headerlink" title="对”多说”进行了解"></a>对”多说”进行了解</h5><p><strong>使用”多说”有一个缺点，他们的服务器不知道为何会偶尔性挂掉。</strong></p>
+<blockquote>
+<p>多说的评论框虽然提供了https链接，但是其中的一些头像和表情还是http的。通过F12，我们可以发现多说的embed.js请求头像和表情的时候用的是http协。但是，这两个链接本身也支持https协议。<br>先给个embed.js的官方下载链接 : <a href="https://static.duoshuo.com/embed.js" target="_blank" rel="external">https://static.duoshuo.com/embed.js</a></p>
+</blockquote>
 <ul>
-<li>打开命令行界面并确认GCC可用<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">键盘win + r   （ 这里的r是run的意思）</div><div class="line">输入cmd,回车，你就看到了命令行</div><div class="line">输入gcc -v       --如果返回了结果，那么继续，如果不识别，那么请立刻参考“附录”</div></pre></td></tr></table></figure>
+<li>下载后的JS文件是经过压缩的，所以我们需要用 Sublime Text 来进行格式话，以方便我们阅读。</li>
+</ul>
+<h5 id="修改头像链接"><a href="#修改头像链接" class="headerlink" title="修改头像链接"></a>修改头像链接</h5><p>经过漫长的Debug，我终于找到了头像链接的相应位置。<br>搜索avatar_url找到头像链接(展示其中部分代码)，：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">        <span class="keyword">var</span> Z = &#123; <span class="attr">userUrl</span>: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">                    <span class="keyword">return</span> e.url &#125;, <span class="attr">avatarUrl</span>: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">                    <span class="keyword">return</span> e.avatar_url || rt.data.default_avatar_url</div><div class="line">                &#125;, <span class="attr">loginUrl</span>: <span class="function"><span class="keyword">function</span>(<span class="params">e, t</span>) </span>&#123;</div></pre></td></tr></table></figure></p>
+<p>简单的字符串替换为”https”，将其修改为：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">        <span class="keyword">var</span> Z = &#123; <span class="attr">userUrl</span>: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">                    <span class="keyword">return</span> e.url &#125;, <span class="attr">avatarUrl</span>: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">                    <span class="keyword">var</span> s = e.avatar_url || rt.data.default_avatar_url</div><div class="line">                    s=s.replace(<span class="regexp">/http:/g</span>,<span class="string">'https:'</span>);</div><div class="line">                    <span class="keyword">return</span> s</div><div class="line">                &#125;, <span class="attr">loginUrl</span>: <span class="function"><span class="keyword">function</span>(<span class="params">e, t</span>) </span>&#123;</div></pre></td></tr></table></figure></p>
+<h5 id="修改表情链接"><a href="#修改表情链接" class="headerlink" title="修改表情链接"></a>修改表情链接</h5><p>经过Debug，发现传送的属性是meaasge，它的上一个属性是s。最终查了好久之后终于发现了它的位置(这个没有上一个明显)，搜索s = e.post就可以找到它的位置(<strong>注意等号旁边的空格</strong>)。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">            <span class="keyword">var</span> t = <span class="string">""</span>,</div><div class="line">                s = e.post,</div><div class="line">                i = e.options,</div><div class="line">                r = s.author;</div></pre></td></tr></table></figure></p>
+<p>简单的字符串替换为”https”，将其修改为：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">            <span class="keyword">var</span> t = <span class="string">""</span>,</div><div class="line">                s = e.post,</div><div class="line">                i = e.options,</div><div class="line">                r = s.author;</div><div class="line">                s.message = s.message.replace(<span class="regexp">/http:/g</span>,<span class="string">"https:"</span>);</div></pre></td></tr></table></figure></p>
+<h5 id="修改表情按钮链接"><a href="#修改表情按钮链接" class="headerlink" title="修改表情按钮链接"></a>修改表情按钮链接</h5><p>这个最简单了，Debug发现按钮链接为”<a href="http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/" target="_blank" rel="external">http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/</a>“ ，在JS文件中将其修改为 https 即可。</p>
+<h5 id="替换embed-js的路径"><a href="#替换embed-js的路径" class="headerlink" title="替换embed.js的路径"></a>替换embed.js的路径</h5><p>以Hexo主题icarus为例，在<code>themes\icarus\layout\comment</code>文件夹下找到多说的调用ejs文件。我将上面修改过的JS文件放到了主题的资源JS文件夹，然后在相应的ejs文件中修改调用路径即可。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">    ds.async = <span class="literal">true</span>;</div><div class="line">    ds.src = <span class="string">'/js/embed.js'</span>;</div><div class="line">    ds.charset = <span class="string">'UTF-8'</span>;</div></pre></td></tr></table></figure></p>
+<h5 id="完美应用"><a href="#完美应用" class="headerlink" title="完美应用"></a>完美应用</h5><p>利用hexo命令<code>hexo g &amp;&amp; hexo d</code>，重新将静态资源pull到Github上。欢迎大家去访问一下我的个人博客 <a href="https://www.zggdczfr.cn/" target="_blank" rel="external">https://www.zggdczfr.cn/</a> 。</p>
+<h3 id="关于图床的问题"><a href="#关于图床的问题" class="headerlink" title="关于图床的问题"></a>关于图床的问题</h3><p>https引用的图片一直是略微麻烦的事情。</p>
+<ul>
+<li><p>第一种，是将图片放到Github上。但是，使用相对路径引用的话，会出现跳转页面时一些图片路径会错误；使用绝对路径引用的话，会出现重定向的问题，浏览器报<code>302</code>异常，使浏览器上的绿色小锁头不见了(不能容忍……)。</p>
+</li>
+<li><p>第二种，是将图片放到七牛云上面，不过注册用户每个月有流量限制，我担心若访问人数太多(虽然不大可能)会使图片失效。</p>
+</li>
+<li><p>第三种，从知乎上找到了支持 https 的图床，虽然不知道能使用多久(我现在也就是使用这种)。给个链接 : <a href="https://www.tuchuang001.com/" target="_blank" rel="external">https://www.tuchuang001.com/</a></p>
+</li>
+<li><p>第四种，在自己的私人服务器上搭一个(因为自己的腾讯云服务器要经常做一些测试，就不选择放到上面了)。</p>
 </li>
 </ul>
-<p>如：<br><img src="https://www.tuchuang001.com/images/2017/02/07/gcc.jpg" alt=""></p>
-<ul>
-<li>写好C语言源文件<br>创建test.c文件，输入以下代码：<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"hello world\n"</span>);</div><div class="line">    getchar();</div><div class="line">    rerturn <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>将.c文件放于E盘中，方便操作。</p>
-<ul>
-<li>编译该.c文件<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">E: cd</div><div class="line">gcc test.c -o test</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>这里的<code>cd</code>是<code>change directory</code>的意思</p>
-<p>接下来，在E盘中就能找到<code>test.exe</code>文件，双击运行即可。<br>备注：也可通过命令行来运行该文件！</p>
-<ul>
-<li>附录<br>当你输入<code>gcc</code>时，之所以你看到了：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">不是内部或外部命令，也不是可运行的程序或批处理文件。</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>因为你没有在自己的环境变量之中添加<code>gcc.exe</code>的路径。于是系统完全不知道去哪里寻找<code>gcc.exe</code>。<br>关于GCC的安装配置我就不废话了，直接借用CSDN上<code>firefoxbug</code>大神的博文，附上链接<br><a href="http://blog.csdn.net/firefoxbug/article/details/6724876" title="Windows下安装配置GCC编译器" target="_blank" rel="external">Windows下安装配置GCC编译器</a></p>
-<h3 id="2-Java运行命令行"><a href="#2-Java运行命令行" class="headerlink" title="2. Java运行命令行"></a>2. Java运行命令行</h3><p>java的<code>Runtime.getRuntime().exec(string)</code>可以调用执行<code>cmd</code>指令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">cmd /c dir 是执行完dir命令后关闭命令窗口。</div><div class="line"></div><div class="line">cmd /k dir 是执行完dir命令后不关闭命令窗口。</div><div class="line"></div><div class="line">cmd /c start dir 会打开一个新窗口后执行dir指令，原窗口会关闭。</div><div class="line"></div><div class="line">cmd /k start dir 会打开一个新窗口后执行dir指令，原窗口不会关闭。</div><div class="line"></div><div class="line">可以用cmd /?查看帮助信息。</div></pre></td></tr></table></figure></p>
-<p>附上一个简单的调用demo<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        String string = <span class="string">"要执行的cmd语句"</span>;</div><div class="line">        Runtime run = Runtime.getRuntime();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Process process = run.exec(<span class="string">"cmd.exe /k start "</span> + string);</div><div class="line">            <span class="comment">/*</span></div><div class="line">            对进程 process 进行操作</div><div class="line">             */</div><div class="line">            process.destroy();</div><div class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-<p><strong>关于多条cmd语句的执行问题</strong><br>在许多情况下，只调用一条cmd语句明显不能满足我们的需求，需要多条cmd语句来共同配合使用。<br>关于网上使用<code>&amp;&amp;</code>来连接多条cmd语句的调用使用，<em>本人亲测不成功</em>，也有可能是我的操作有错(可与网上案例一模一样的代码运行不成功我也没办法啊，也考虑过是Windows操作系统的影响)。<br>最后，我是使用了<code>bat</code>批处理文件来解决这个问题的，具体案例请参考我的<strong>开发案例</strong>。</p>
-<p><strong>常见的CMD命令</strong><br>注意：以下命令均由互联网收集而来！！！<br>1. gpedit.msc—–组策略<br>2. sndrec32——-录音机<br>3. Nslookup——-IP地址侦测器<br>4. explorer——-打开资源管理器<br>5. logoff———注销命令<br>6. tsshutdn——-60秒倒计时关机命令<br>7. lusrmgr.msc—-本机用户和组<br>8. services.msc—本地服务设置<br>9. oobe/msoobe /a—-检查XP是否激活<br>10. notepad——–打开记事本<br>11. cleanmgr——-垃圾整理<br>12. net start messenger—-开始信使服务<br>13. compmgmt.msc—计算机管理<br>14. net stop messenger—–停止信使服务<br>15. conf———–启动netmeeting<br>16. dvdplay——–DVD播放器<br>17. charmap——–启动字符映射表<br>18. diskmgmt.msc—磁盘管理实用程序<br>19. calc———–启动计算器<br>20. dfrg.msc——-磁盘碎片整理程序<br>21. chkdsk.exe—–Chkdsk磁盘检查<br>22. devmgmt.msc— 设备管理器<br>23. regsvr32 /u <em>.dll—-停止dll文件运行<br>24. drwtsn32—— 系统医生<br>25. rononce -p —-15秒关机<br>26. dxdiag———检查DirectX信息<br>27. regedt32——-注册表编辑器<br>28. Msconfig.exe—系统配置实用程序<br>29. rsop.msc——-组策略结果集<br>30. mem.exe——–显示内存使用情况<br>31. regedit.exe—-注册表<br>32. winchat——–XP自带局域网聊天<br>33. progman——–程序管理器<br>34. winmsd———系统信息<br>35. perfmon.msc—-计算机性能监测程序<br>36. winver———检查Windows版本<br>37. sfc /scannow—–扫描错误并复原<br>38. taskmgr—–任务管理器（2000／xp／2003<br>39. winver———检查Windows版本<br>40. wmimgmt.msc—-打开windows管理体系结构(WMI)<br>41. wupdmgr——–windows更新程序<br>42. wscript——–windows脚本宿主设置<br>43. write———-写字板<br>44. winmsd———系统信息<br>45. wiaacmgr——-扫描仪和照相机向导<br>46. winchat——–XP自带局域网聊天<br>47. mem.exe——–显示内存使用情况<br>48. Msconfig.exe—系统配置实用程序<br>49. mplayer2——-简易widnows media player<br>50. mspaint——–画图板<br>51. mstsc———-远程桌面连接<br>52. mplayer2——-媒体播放机<br>53. magnify——–放大镜实用程序<br>54. mmc————打开控制台<br>55. mobsync——–同步命令<br>56. dxdiag———检查DirectX信息<br>57. drwtsn32—— 系统医生<br>58. devmgmt.msc— 设备管理器<br>59. dfrg.msc——-磁盘碎片整理程序<br>60. diskmgmt.msc—磁盘管理实用程序<br>61. dcomcnfg——-打开系统组件服务<br>62. ddeshare——-打开DDE共享设置<br>63. dvdplay——–DVD播放器<br>64. net stop messenger—–停止信使服务<br>65. net start messenger—-开始信使服务<br>66. notepad——–打开记事本<br>67. nslookup——-网络管理的工具向导<br>68. ntbackup——-系统备份和还原<br>69. narrator——-屏幕“讲述人”<br>70. ntmsmgr.msc—-移动存储管理器<br>71. ntmsoprq.msc—移动存储管理员操作请求<br>72. netstat -an—-(TC)命令检查接口<br>73. syncapp——–创建一个公文包<br>74. sysedit——–系统配置编辑器<br>75. sigverif——-文件签名验证程序<br>76. sndrec32——-录音机<br>77. shrpubw——–创建共享文件夹<br>78. secpol.msc—–本地安全策略<br>79. syskey———系统加密，一旦加密就不能解开，保护windows xp系统的双重密码<br>80. services.msc—本地服务设置<br>81. Sndvol32——-音量控制程序<br>82. sfc.exe——–系统文件检查器<br>83. sfc /scannow—windows文件保护<br>84. tsshutdn——-60秒倒计时关机命令<br>3. 84. tsshutdn——-60秒倒计时关机命令<br>85. tourstart——xp简介（安装完成后出现的漫游xp程序）<br>86. taskmgr——–任务管理器<br>87. eventvwr——-事件查看器<br>88. eudcedit——-造字程序<br>89. explorer——-打开资源管理器<br>90. packager——-对象包装程序<br>91. perfmon.msc—-计算机性能监测程序<br>92. progman——–程序管理器<br>93. regedit.exe—-注册表<br>94. rsop.msc——-组策略结果集<br>95. regedt32——-注册表编辑器<br>96. rononce -p —-15秒关机<br>97. regsvr32 /u </em>.dll—-停止dll文件运行<br>98. regsvr32 /u zipfldr.dll——取消ZIP支持<br>99. cmd.exe——–CMD命令提示符<br>100. chkdsk.exe—–Chkdsk磁盘检查<br>101. certmgr.msc—-证书管理实用程序<br>102. calc———–启动计算器<br>103. charmap——–启动字符映射表<br>104. cliconfg——-SQL SERVER 客户端网络实用程序<br>105. Clipbrd——–剪贴板查看器<br>106. conf———–启动netmeeting<br>107. compmgmt.msc—计算机管理<br>108. cleanmgr——-垃圾整理<br>109. ciadv.msc——索引服务程序<br>110. osk————打开屏幕键盘<br>111. odbcad32——-ODBC数据源管理器<br>112. oobe/msoobe /a—-检查XP是否激活<br>113. lusrmgr.msc—-本机用户和组<br>114. logoff———注销命令<br>115. iexpress——-木马捆绑工具，系统自带<br>116. Nslookup——-IP地址侦测器<br>117. fsmgmt.msc—–共享文件夹管理器<br>118. utilman——–辅助工具管理器<br>119. gpedit.msc—–组策略<br>120. explorer——-打开资源管理器</p>
 
         
         </div>
@@ -355,7 +375,7 @@ var _hmt = _hmt || [];
 
             
     
-        <a href="https://zggdczfr.cn/2017/02/05/java调用cmd编译C文件(一)/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://zggdczfr.cn/2017/02/05/java调用cmd编译C文件(一)/">评论</a>
+        <a href="https://zggdczfr.cn/2017/02/25/让个人域名下GithubPage完美支持https/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://zggdczfr.cn/2017/02/25/让个人域名下GithubPage完美支持https/">评论</a>
     
 
         </footer>
@@ -364,19 +384,10 @@ var _hmt = _hmt || [];
         
 <nav id="article-nav">
     
-        <a href="/2017/02/05/java调用cmd编译C文件(二)/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    java调用cmd编译(二)
-                
-            </div>
-        </a>
     
-    
-        <a href="/2017/02/02/大学有感/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2017/02/21/Spring-Cloud-Config-续/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">大学有感</div>
+            <div class="article-nav-title">Spring Cloud Config(续)</div>
         </a>
     
 </nav>
@@ -390,7 +401,7 @@ var _hmt = _hmt || [];
     <section id="comments">
     
         
-    <div class="ds-thread" data-thread-key="2017/02/05/java调用cmd编译C文件(一)/" data-title="java调用cmd编译(一)" data-url="https://zggdczfr.cn/2017/02/05/java调用cmd编译C文件(一)/"></div>
+    <div class="ds-thread" data-thread-key="2017/02/25/让个人域名下GithubPage完美支持https/" data-title="让个人域名下GithubPage完美支持https" data-url="https://zggdczfr.cn/2017/02/25/让个人域名下GithubPage完美支持https/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
