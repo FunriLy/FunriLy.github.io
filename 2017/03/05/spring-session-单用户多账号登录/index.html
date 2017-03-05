@@ -3,17 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>标签: https | FunriLySpace</title>
+    <title>spring session 单用户多账号登录 | FunriLySpace</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="FunriLySpace">
-<meta property="og:url" content="https://zggdczfr.cn/tags/https/index.html">
+    <meta name="description" content="Spring Session Multiple Browser Sessions - Spring Session supports managing multiple users’ sessions in a single browser instance (i.e. multiple authenticated accounts similar to Google).">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring session 单用户多账号登录">
+<meta property="og:url" content="https://zggdczfr.cn/2017/03/05/spring-session-单用户多账号登录/index.html">
 <meta property="og:site_name" content="FunriLySpace">
-<meta property="og:description" content="天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。">
+<meta property="og:description" content="Spring Session Multiple Browser Sessions - Spring Session supports managing multiple users’ sessions in a single browser instance (i.e. multiple authenticated accounts similar to Google).">
+<meta property="og:image" content="https://www.tuchuang001.com/images/2017/03/05/springsession.jpg">
+<meta property="og:updated_time" content="2017-03-05T09:15:28.896Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FunriLySpace">
-<meta name="twitter:description" content="天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。">
+<meta name="twitter:title" content="spring session 单用户多账号登录">
+<meta name="twitter:description" content="Spring Session Multiple Browser Sessions - Spring Session supports managing multiple users’ sessions in a single browser instance (i.e. multiple authenticated accounts similar to Google).">
+<meta name="twitter:image" content="https://www.tuchuang001.com/images/2017/03/05/springsession.jpg">
     
 
     
@@ -215,50 +218,211 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main">
-<div class="timeline timeline-wrap">
-    <div class="timeline-row timeline-row-major">
-        <span class="node"><i class="fa fa-tag"></i></span>
-        <h1 class="title">#https</h1>
-    </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+            <section id="main"><article id="post-spring-session-单用户多账号登录" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/02/25/让个人域名下GithubPage完美支持https/">让个人域名下GithubPage完美支持https</a>
+        <h1 class="article-title" itemprop="name">
+            spring session 单用户多账号登录
         </h1>
     
 
-                <div class="article-meta">
-                    
+                
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/02/25/让个人域名下GithubPage完美支持https/">
-            <time datetime="2017-02-25T12:04:03.000Z" itemprop="datePublished">2017-02-25</time>
+        <a href="/2017/03/05/spring-session-单用户多账号登录/">
+            <time datetime="2017-03-05T09:09:33.000Z" itemprop="datePublished">2017-03-05</time>
         </a>
     </div>
 
 
-                    
+                        
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/其他奇奇怪怪的/">其他奇奇怪怪的</a>
+        <a class="article-category-link" href="/categories/spring-session/">spring session</a>
     </div>
 
-                    
+                        
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/https/">https</a>
+        <a class="tag-link" href="/tags/spring-session/">spring session</a>
     </div>
 
-                </div>
-            </div>
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p><strong>Spring Session Multiple Browser Sessions</strong> - Spring Session supports managing multiple users’ sessions in a single browser instance (i.e. multiple authenticated accounts similar to Google).<br><a id="more"></a></p>
+<h2 id="spring-session-单用户多账号登录"><a href="#spring-session-单用户多账号登录" class="headerlink" title="spring session 单用户多账号登录"></a>spring session 单用户多账号登录</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>昨天在查看 spring session 官网时发现一段有趣的话(<a href="http://projects.spring.io/spring-session/)：" target="_blank" rel="external">http://projects.spring.io/spring-session/)：</a></p>
+<blockquote>
+<p> <strong>Multiple Browser Sessions</strong> - Spring Session supports managing multiple users’ sessions in a single browser instance (i.e. multiple authenticated accounts similar to Google).</p>
+</blockquote>
+<p>这段话大意就是说 spring session 支持一个用户在浏览器上登录多个账户的功能。一般情况下，我们是通过开启多个浏览器同时登录某个系统，实现自己多个账户的同时操作。其实，Chrome 浏览器已经实现了多个 Google 账户在浏览器上的操作。</p>
+<h3 id="个人参考案例"><a href="#个人参考案例" class="headerlink" title="个人参考案例"></a>个人参考案例</h3><p>个人博客 : <a href="https://zggdczfr.cn/">https://zggdczfr.cn/</a><br>个人参考案例(如果认可的话请给个star) : <a href="https://github.com/FunriLy/springboot-study/tree/master/%E6%A1%88%E4%BE%8B10" target="_blank" rel="external">https://github.com/FunriLy/springboot-study/tree/master/%E6%A1%88%E4%BE%8B10</a></p>
+<h3 id="正式实现"><a href="#正式实现" class="headerlink" title="正式实现"></a>正式实现</h3><p>这里我用的是 <a href="http://blog.csdn.net/u011244202/article/details/60154444" target="_blank" rel="external">spring boot 学习(十四)SpringBoot+Redis+SpringSession缓存之实战</a>，这个前天的案例。<br>通过仔细阅读官方的操作文档 <a href="http://docs.spring.io/spring-session/docs/current/reference/html5/guides/users.html" target="_blank" rel="external">Spring Session - Multiple Sessions</a>，我稍微理解了该如何来使用多账户登录。一般情况下，我们登录访问系统时，Spring Session 会默认一个请求参数<code>_s</code>为 0.通过修改这个参数，来启用 SpringSession 为用户分配新的 SessionId。</p>
+<h3 id="实现机制"><a href="#实现机制" class="headerlink" title="实现机制"></a>实现机制</h3><p>通过稍微阅读 <a href="https://github.com/spring-projects/spring-session" target="_blank" rel="external">SpringSession 源码</a> 与几位大神的博客，我大概知道了其中的机制。</p>
+<ul>
+<li>spring session通过增加session alias概念来实现多用户session，每一个用户都映射成一个session alias。当有多个session时，spring会生成“alias1 sessionid1 alias2 sessid2…….”这样的cookie值结构。</li>
+<li>每当spring session提交时如果有新session生成，会触发onNewSession动作生成新的session cookie。</li>
+</ul>
+<blockquote>
+<p>onNewSession 是 Spring Session 源码之中一个重要的方法</p>
+</blockquote>
+<p><strong>注意：</strong>如果只有一个session id，则和普通session cookie一样处理，cookie值就是session id。如果存在多个session id，就会形成上面提到的那种 alias 结构的 session cookie。</p>
+<h3 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h3><h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><p>等我信心满满等按照官网操作方法去搞时，却失败了，爆了个异常<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java.lang.IllegalArgumentException: An invalid character [32] was present in the Cookie value</div></pre></td></tr></table></figure></p>
+<p>报得我一脸蒙蔽……google之后，原来是 Tomcat 在 8.5.X 版本后不使用 <code>Servlet 3.1</code> 的标准，改用<code>RFC 6265</code> 来实现。这样子的话，会导致报文输入时多了个空格(字符32)。</p>
+<h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><p>重写 Tomcat 的解析方法，代码来源于Github，并经过修改。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CookieConfig</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> EmbeddedServletContainerCustomizer <span class="title">customizer</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> EmbeddedServletContainerCustomizer() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">customize</span><span class="params">(ConfigurableEmbeddedServletContainer container)</span> </span>&#123;</div><div class="line">                TomcatEmbeddedServletContainerFactory tomcat = (TomcatEmbeddedServletContainerFactory) container;</div><div class="line">                tomcat.addContextCustomizers(</div><div class="line">                        <span class="keyword">new</span> TomcatContextCustomizer() &#123;</div><div class="line">                            <span class="meta">@Override</span></div><div class="line">                            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">customize</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">                                context.setCookieProcessor(<span class="keyword">new</span> LegacyCookieProcessor());</div><div class="line">                            &#125;</div><div class="line">                        &#125;);</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>将方法重写后注入 bean 中，交给容器去管理。</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>启动工程，在同一个浏览器中分别访问<br><a href="http://localhost:8080/session?_s=0" target="_blank" rel="external">http://localhost:8080/session?_s=0</a><br><a href="http://localhost:8080/session?_s=1" target="_blank" rel="external">http://localhost:8080/session?_s=1</a><br><a href="http://localhost:8080/session?_s=2" target="_blank" rel="external">http://localhost:8080/session?_s=2</a></p>
+<p>我们可以看到结果(三个sessionId都不一样)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;&quot;SessionId&quot;:&quot;a1d59666-10a4-4dc3-a1b0-1166cda8aab2&quot;,&quot;ServerPort&quot;:&quot;服务端口号为 8080&quot;&#125;</div><div class="line"></div><div class="line">&#123;&quot;SessionId&quot;:&quot;21177055-70e2-426c-9292-40ccf825078b&quot;,&quot;ServerPort&quot;:&quot;服务端口号为 8080&quot;&#125;</div><div class="line"></div><div class="line">&#123;&quot;SessionId&quot;:&quot;1eade000-f2e1-4bf9-9aef-1510d39441e4&quot;,&quot;ServerPort&quot;:&quot;服务端口号为 8080&quot;&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a href="https://github.com/spring-projects/spring-session" target="_blank" rel="external">https://github.com/spring-projects/spring-session</a></li>
+<li><a href="http://docs.spring.io/spring-session/docs/current/reference/html5/guides/users.html" target="_blank" rel="external">http://docs.spring.io/spring-session/docs/current/reference/html5/guides/users.html</a></li>
+<li><a href="https://github.com/spring-projects/spring-boot/issues/6827" target="_blank" rel="external">https://github.com/spring-projects/spring-boot/issues/6827</a></li>
+<li>(配置代码主要来源)<a href="https://github.com/jomolina/session-couchbase-spring-boot-starter/commit/e7b0487b92b65408c485a7d25b89a64c9fb4fc89" target="_blank" rel="external">https://github.com/jomolina/session-couchbase-spring-boot-starter/commit/e7b0487b92b65408c485a7d25b89a64c9fb4fc89</a></li>
+</ul>
+
+        
         </div>
-    
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
 </div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
+
+</div>
+
+            
+    
+        <a href="https://zggdczfr.cn/2017/03/05/spring-session-单用户多账号登录/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://zggdczfr.cn/2017/03/05/spring-session-单用户多账号登录/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/02/25/让个人域名下GithubPage完美支持https/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">让个人域名下GithubPage完美支持https</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2017/03/05/spring-session-单用户多账号登录/" data-title="spring session 单用户多账号登录" data-url="https://zggdczfr.cn/2017/03/05/spring-session-单用户多账号登录/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
 </section>
             
                 <aside id="sidebar">
