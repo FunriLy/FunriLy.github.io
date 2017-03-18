@@ -259,7 +259,8 @@ var _hmt = _hmt || [];
         <div class="article-entry" itemprop="articleBody">
         
             
-            <h2 id="Spring-Cloud构建微服务架构-服务网关"><a href="#Spring-Cloud构建微服务架构-服务网关" class="headerlink" title="Spring Cloud构建微服务架构:服务网关"></a>Spring Cloud构建微服务架构:服务网关</h2><p>通过之前几篇Spring Cloud中几个核心组件的介绍，我们已经可以构建一个简略的（不够完善）微服务架构了。比如下图所示：<br><a href="http://blog.didispace.com/content/images/2016/07/-----.png" title="alt" target="_blank" rel="external"><img src="http://blog.didispace.com/content/images/2016/07/-----.png" alt="alt"></a></p>
+            <a id="more"></a>
+<h2 id="Spring-Cloud构建微服务架构-服务网关"><a href="#Spring-Cloud构建微服务架构-服务网关" class="headerlink" title="Spring Cloud构建微服务架构:服务网关"></a>Spring Cloud构建微服务架构:服务网关</h2><p>通过之前几篇Spring Cloud中几个核心组件的介绍，我们已经可以构建一个简略的（不够完善）微服务架构了。比如下图所示：<br><a href="http://blog.didispace.com/content/images/2016/07/-----.png" title="alt" target="_blank" rel="external"><img src="http://blog.didispace.com/content/images/2016/07/-----.png" alt="alt"></a></p>
 <p>我们使用Spring Cloud Netflix中的Eureka实现了服务注册中心以及服务注册与发现；而服务间通过Ribbon或Feign实现服务的消费以及均衡负载；通过Spring Cloud Config实现了应用多环境的外部化配置以及版本管理。为了使得服务集群更为健壮，使用Hystrix的融断机制来避免在微服务架构中个别服务出现异常时引起的故障蔓延。</p>
 <p>在该架构中，我们的服务集群包含：内部服务Service A和Service B，他们都会注册与订阅服务至Eureka Server，而Open Service是一个对外的服务，通过均衡负载公开至服务调用方。本文我们把焦点聚集在对外服务这块，这样的实现是否合理，或者是否有更好的实现方式呢？</p>
 <p>先来说说这样架构需要做的一些事儿以及存在的不足：</p>
