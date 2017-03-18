@@ -3,22 +3,19 @@
 <head>
     <meta charset="utf-8">
     
-    <title>(装)Spring Cloud构建微服务架构:服务网关 | FunriLySpace</title>
+    <title>(转)Spring Cloud构建微服务架构:服务网关 | FunriLySpace</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Spring Cloud构建微服务架构:服务网关通过之前几篇Spring Cloud中几个核心组件的介绍，我们已经可以构建一个简略的（不够完善）微服务架构了。比如下图所示：
-我们使用Spring Cloud Netflix中的Eureka实现了服务注册中心以及服务注册与发现；而服务间通过Ribbon或Feign实现服务的消费以及均衡负载；通过Spring Cloud Config实现了应用多环境">
+    <meta name="description" content="转载于 http://blog.didispace.com/springcloud5/#comments">
 <meta property="og:type" content="article">
-<meta property="og:title" content="(装)Spring Cloud构建微服务架构:服务网关">
+<meta property="og:title" content="(转)Spring Cloud构建微服务架构:服务网关">
 <meta property="og:url" content="https://zggdczfr.cn/2017/03/18/(转)Spring-Cloud构建微服务架构-服务网关/index.html">
 <meta property="og:site_name" content="FunriLySpace">
-<meta property="og:description" content="Spring Cloud构建微服务架构:服务网关通过之前几篇Spring Cloud中几个核心组件的介绍，我们已经可以构建一个简略的（不够完善）微服务架构了。比如下图所示：
-我们使用Spring Cloud Netflix中的Eureka实现了服务注册中心以及服务注册与发现；而服务间通过Ribbon或Feign实现服务的消费以及均衡负载；通过Spring Cloud Config实现了应用多环境">
+<meta property="og:description" content="转载于 http://blog.didispace.com/springcloud5/#comments">
 <meta property="og:image" content="http://blog.didispace.com/content/images/2016/07/-----.png">
-<meta property="og:updated_time" content="2017-03-18T02:05:38.019Z">
+<meta property="og:updated_time" content="2017-03-18T02:07:08.224Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="(装)Spring Cloud构建微服务架构:服务网关">
-<meta name="twitter:description" content="Spring Cloud构建微服务架构:服务网关通过之前几篇Spring Cloud中几个核心组件的介绍，我们已经可以构建一个简略的（不够完善）微服务架构了。比如下图所示：
-我们使用Spring Cloud Netflix中的Eureka实现了服务注册中心以及服务注册与发现；而服务间通过Ribbon或Feign实现服务的消费以及均衡负载；通过Spring Cloud Config实现了应用多环境">
+<meta name="twitter:title" content="(转)Spring Cloud构建微服务架构:服务网关">
+<meta name="twitter:description" content="转载于 http://blog.didispace.com/springcloud5/#comments">
 <meta name="twitter:image" content="http://blog.didispace.com/content/images/2016/07/-----.png">
     
 
@@ -229,7 +226,7 @@ var _hmt = _hmt || [];
                 
     
         <h1 class="article-title" itemprop="name">
-            (装)Spring Cloud构建微服务架构:服务网关
+            (转)Spring Cloud构建微服务架构:服务网关
         </h1>
     
 
@@ -264,7 +261,7 @@ var _hmt = _hmt || [];
         <div class="article-entry" itemprop="articleBody">
         
             
-            <a id="more"></a>
+            <p>转载于 <a href="http://blog.didispace.com/springcloud5/#comments" target="_blank" rel="external">http://blog.didispace.com/springcloud5/#comments</a><br><a id="more"></a></p>
 <h2 id="Spring-Cloud构建微服务架构-服务网关"><a href="#Spring-Cloud构建微服务架构-服务网关" class="headerlink" title="Spring Cloud构建微服务架构:服务网关"></a>Spring Cloud构建微服务架构:服务网关</h2><p>通过之前几篇Spring Cloud中几个核心组件的介绍，我们已经可以构建一个简略的（不够完善）微服务架构了。比如下图所示：<br><a href="http://blog.didispace.com/content/images/2016/07/-----.png" title="alt" target="_blank" rel="external"><img src="http://blog.didispace.com/content/images/2016/07/-----.png" alt="alt"></a></p>
 <p>我们使用Spring Cloud Netflix中的Eureka实现了服务注册中心以及服务注册与发现；而服务间通过Ribbon或Feign实现服务的消费以及均衡负载；通过Spring Cloud Config实现了应用多环境的外部化配置以及版本管理。为了使得服务集群更为健壮，使用Hystrix的融断机制来避免在微服务架构中个别服务出现异常时引起的故障蔓延。</p>
 <p>在该架构中，我们的服务集群包含：内部服务Service A和Service B，他们都会注册与订阅服务至Eureka Server，而Open Service是一个对外的服务，通过均衡负载公开至服务调用方。本文我们把焦点聚集在对外服务这块，这样的实现是否合理，或者是否有更好的实现方式呢？</p>
@@ -442,7 +439,7 @@ var _hmt = _hmt || [];
     <section id="comments">
     
         
-    <div class="ds-thread" data-thread-key="2017/03/18/(转)Spring-Cloud构建微服务架构-服务网关/" data-title="(装)Spring Cloud构建微服务架构:服务网关" data-url="https://zggdczfr.cn/2017/03/18/(转)Spring-Cloud构建微服务架构-服务网关/"></div>
+    <div class="ds-thread" data-thread-key="2017/03/18/(转)Spring-Cloud构建微服务架构-服务网关/" data-title="(转)Spring Cloud构建微服务架构:服务网关" data-url="https://zggdczfr.cn/2017/03/18/(转)Spring-Cloud构建微服务架构-服务网关/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
@@ -500,7 +497,7 @@ var _hmt = _hmt || [];
                             <a href="/2017/03/18/(转)Spring-Cloud构建微服务架构-服务网关/" class="thumbnail">
     
     
-        <span style="background-image:url(http://blog.didispace.com/content/images/2016/07/-----.png)" alt="(装)Spring Cloud构建微服务架构:服务网关" class="thumbnail-image"></span>
+        <span style="background-image:url(http://blog.didispace.com/content/images/2016/07/-----.png)" alt="(转)Spring Cloud构建微服务架构:服务网关" class="thumbnail-image"></span>
     
 </a>
 
@@ -508,7 +505,7 @@ var _hmt = _hmt || [];
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/spring-cloud/">spring cloud</a></p>
-                            <p class="item-title"><a href="/2017/03/18/(转)Spring-Cloud构建微服务架构-服务网关/" class="title">(装)Spring Cloud构建微服务架构:服务网关</a></p>
+                            <p class="item-title"><a href="/2017/03/18/(转)Spring-Cloud构建微服务架构-服务网关/" class="title">(转)Spring Cloud构建微服务架构:服务网关</a></p>
                             <p class="item-date"><time datetime="2017-03-18T01:59:12.000Z" itemprop="datePublished">2017-03-18</time></p>
                         </div>
                     </li>
