@@ -3,18 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>MY WORKS | FunriLySpace</title>
+    <title>JVM学习笔记(一) Java内存区域 | FunriLySpace</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MY WORKS">
-<meta property="og:url" content="https://zggdczfr.cn/my_works/index.html">
+    <meta name="description" content="最近花了好几天的时间大概地浏览了一下《深入了解Java虚拟机》，果然基本上都忘得差不多了。接下来就必须抽出时间好好地读一下这本书了，多记笔记、多记笔记、多记笔记！！！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM学习笔记(一) Java内存区域">
+<meta property="og:url" content="https://zggdczfr.cn/2017/03/20/JVM学习笔记-一-Java内存区域/index.html">
 <meta property="og:site_name" content="FunriLySpace">
-<meta property="og:description" content="天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。">
-<meta property="og:updated_time" content="2017-02-02T08:33:28.572Z">
+<meta property="og:description" content="最近花了好几天的时间大概地浏览了一下《深入了解Java虚拟机》，果然基本上都忘得差不多了。接下来就必须抽出时间好好地读一下这本书了，多记笔记、多记笔记、多记笔记！！！">
+<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/147/142/1471427608-558abc24ef69f_articlex">
+<meta property="og:updated_time" content="2017-03-19T16:16:24.426Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MY WORKS">
-<meta name="twitter:description" content="天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。">
+<meta name="twitter:title" content="JVM学习笔记(一) Java内存区域">
+<meta name="twitter:description" content="最近花了好几天的时间大概地浏览了一下《深入了解Java虚拟机》，果然基本上都忘得差不多了。接下来就必须抽出时间好好地读一下这本书了，多记笔记、多记笔记、多记笔记！！！">
+<meta name="twitter:image" content="https://sfault-image.b0.upaiyun.com/147/142/1471427608-558abc24ef69f_articlex">
     
 
     
@@ -216,7 +218,7 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-JVM学习笔记-一-Java内存区域" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -224,10 +226,34 @@ var _hmt = _hmt || [];
                 
     
         <h1 class="article-title" itemprop="name">
-            MY WORKS
+            JVM学习笔记(一) Java内存区域
         </h1>
     
 
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/03/20/JVM学习笔记-一-Java内存区域/">
+            <time datetime="2017-03-19T16:10:46.000Z" itemprop="datePublished">2017-03-20</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/JVM学习笔记/">JVM学习笔记</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/java/">java</a>
+    </div>
+
+                    </div>
                 
             </header>
         
@@ -235,7 +261,110 @@ var _hmt = _hmt || [];
         <div class="article-entry" itemprop="articleBody">
         
             
-            
+            <p>最近花了好几天的时间大概地浏览了一下《深入了解Java虚拟机》，果然基本上都忘得差不多了。接下来就必须抽出时间好好地读一下这本书了，多记笔记、多记笔记、多记笔记！！！<br><a id="more"></a></p>
+<h2 id="Java-内存区域"><a href="#Java-内存区域" class="headerlink" title="Java 内存区域"></a>Java 内存区域</h2><h3 id="总概"><a href="#总概" class="headerlink" title="总概"></a>总概</h3><p>java虚拟机在执行java程序的过程中，会把它管理的内存划分为几个不同的数据区域。每当运行一个java程序时，就会启动一个虚拟机。<br>具体的区域如图所示：<br><img src="https://sfault-image.b0.upaiyun.com/147/142/1471427608-558abc24ef69f_articlex" alt=""></p>
+<p>同时，方法区 与 堆 是由所有线程共享的数据区；而 虚拟机栈、本地方法栈、程序计数器 则是被线程隔离的区域。</p>
+<h3 id="一、程序计数器"><a href="#一、程序计数器" class="headerlink" title="一、程序计数器"></a>一、程序计数器</h3><hr>
+<blockquote>
+<p>什么是程序计数器？<br><strong>概念</strong>：就是当前线程所执行的字节码的行号指示器。</p>
+</blockquote>
+<ol>
+<li>JVM的概念模型中，字节码解释器通过改变这个计数器的值来选取下一条字节码指令。</li>
+<li>JVM的多线程其实就是通过线程轮流切换并分配处理器执行时间的方式来实现的(<strong>在任何一个确定的时刻内，一个处理器都只会执行一条线程中的指令</strong>)。为了线程切换后能够恢复到正确的执行位置，每条线程都需要有<strong>独立的程序计数器</strong>，各线程计数器互不影响，独立存储。<em>所以，程序计数器是<strong>线程私有</strong>的内存区域</em></li>
+<li>如果线程执行一个Java方法，计数器记录的是正在执行的虚拟机字节码指令的地址；如果执行的是Native方法，则计数器的值为空。</li>
+<li>Java虚拟机规范中唯一一个<strong>没有规定任何OutOfMemoryError情况</strong>的区域。</li>
+</ol>
+<h3 id="二、Java虚拟机栈"><a href="#二、Java虚拟机栈" class="headerlink" title="二、Java虚拟机栈"></a>二、Java虚拟机栈</h3><hr>
+<ol>
+<li>线程私有，生命周期与线程相同。</li>
+<li>虚拟机描述的是Java方法执行的内存模型：每个方法在执行的同时都会创建一个<strong>栈帧(Stack Frame)</strong>用于存储局部变量表、操作数栈、动态链接、方法出口等信息。(PS:我觉得可以将它看作是一个方法的快照，记录着方法的参数之类的信息，其实就是方法运行时的<strong>数据结构基础</strong>)</li>
+<li>局部变量表，存放了各种基本数据类型、对象引用，和返回后所指向的字节码的地址。(PS:这个就是我们常说的“栈内存 Stack”)</li>
+<li>在Java虚拟机规范中，对于该区域规定了两种异常状态：<ul>
+<li>StackOverflowEError : 线程请求的深度大于虚拟机所允许的深度；</li>
+<li>OutOfMemoryError : 动态扩展时无法申请到足够的内存。</li>
+</ul>
+</li>
+</ol>
+<h3 id="三、本地方法栈"><a href="#三、本地方法栈" class="headerlink" title="三、本地方法栈"></a>三、本地方法栈</h3><hr>
+<ol>
+<li>本地方法栈为虚拟机使用到 Native 方法服务。</li>
+<li>同 Java虚拟机栈 一样，会抛出 StackOverflowEError 和 OutOfMemoryError 异常。</li>
+</ol>
+<h3 id="四、Java堆-线程共享"><a href="#四、Java堆-线程共享" class="headerlink" title="四、Java堆(线程共享)"></a>四、Java堆(线程共享)</h3><hr>
+<blockquote>
+<p>C语言是使用 malloc 从堆中来分配空间的。同样的，Java堆是用来存放对象实例的。<br>Java规范中的描述：所有的对象实例以及数组都要在堆上分配；但随着技术的发展，这种说法也不是那么“绝对”了。</p>
+</blockquote>
+<ol>
+<li>唯一目的就是<strong>存放实例对象</strong>，几乎所有的对象实例都在这里分配内存。</li>
+<li><strong>Java堆是垃圾收集器管理的主要区域</strong>。</li>
+<li>可以处于物理上不连续的内存空间中，只要逻辑上是连续的即可，同时也是可扩展的。</li>
+<li>OutOfMemoryError : 如果在堆中没有内存完成实例分配，并且堆也无法再扩展。</li>
+</ol>
+<h3 id="五、方法区-线程共享"><a href="#五、方法区-线程共享" class="headerlink" title="五、方法区(线程共享)"></a>五、方法区(线程共享)</h3><hr>
+<ol>
+<li>存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。</li>
+<li>方法区对于垃圾回收的效果比较难以令人满意，尤其是对于类型的卸载条件相当坎坷，但<strong>对于该区域进行垃圾回收是必要的</strong>。</li>
+<li>OutOfMemoryError : 如果方法区无法满足内存分配需求就会抛出这个异常。</li>
+</ol>
+<h5 id="常量池"><a href="#常量池" class="headerlink" title="常量池"></a>常量池</h5><blockquote>
+<p>常量池是方法区的一部分。这里存放着编译期生成的各种字面量和符号引用（其实就是八大基本类型的包装类型和String类型数据）。</p>
+</blockquote>
+<p>运行时常量池一个重要的特征：<strong>具备动态性</strong>，解释就是Java语言并不要求常量一定只有编译期才产生，比如String类的intern()方法。</p>
+<ul>
+<li><strong>String.intern()</strong><br>String类的intern()方法是一个Native方法，底层调用C++的 StringTable::intern方法实现。<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="comment">//String str = "FunriLy";</span></div><div class="line">        String str1 = <span class="keyword">new</span> StringBuilder(<span class="string">"Funri"</span>).append(<span class="string">"Ly"</span>).toString();</div><div class="line">        System.out.println(str1.intern() == str1);</div><div class="line">        String str2 = <span class="keyword">new</span> StringBuilder(<span class="string">"java"</span>).toString();</div><div class="line">        System.out.println(str2.intern() == str2);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>运行上面的代码，会得到一true一false；若去掉注释，则会得到两个false。</p>
+<pre><code>* 调用intern()后，JVM就会在当前类的常量池中查找是否存在与str等值的String，若存在则直接返回常量池中相应Strnig的引用；若不存在，则会在常量池中创建一个等值的String，然后返回这个String在常量池中的引用。
+* 在 JDK 1.6 版本，**常量池被保存在方法区(PermGen)中**，而String类对象存在于堆区中，这就意味着多次intern()操作会使内存中存在许多重复的字符串，会造成性能损失。同时，在此区域其大小会受到限制。
+* 在 JDK 1.7 版本，开始了&quot;永久代&quot;的移除(也就是前面提到过GC的要求)：符号引用转移到了本地方法栈;字面量转移到了堆;类的静态变量转移到了堆。
+* 在iJDK 1.8 版本，去掉了PermGen内存，所以永久代的参数 -XX:PermSize 和 -XX:MaxPermSize 也被移除了，转而出现了一个元空间(Metaspace)。【关于这一点，可以看一下这篇博文：http://blog.csdn.net/zhyhang/article/details/17246223 】
+</code></pre><h3 id="六、对象的创建"><a href="#六、对象的创建" class="headerlink" title="六、对象的创建"></a>六、对象的创建</h3><hr>
+<ol>
+<li>当虚拟机遇到一条 new 指令时，首先去常量池中检查是否能定位到一个类的符号引用，并检查类是否已经被加载、解析和初始化过。如果没有，就执行相应的加载操作。</li>
+<li>接下来就是在堆中分配空间了。有两种方案：<ul>
+<li><strong>第一种(指针碰撞法)</strong><br>假设堆中内存绝对规整，那么只要在用过的内存和没用过的内存间放置一个指针即可，每次分配空间的时候只要把指针向空闲空间移动相应距离即可。</li>
+<li><strong>第二种(空闲列表)</strong><br>假设内存空间并不规整，通过维护一个列表来记录堆内存的使用情况(PS:操作系统对于内存的管理就是这种模式)。</li>
+</ul>
+</li>
+<li>但是我们也要考虑在并发情况下的线程安全性问题。比如，正在给对象A分配空间，指针还没来得及修改，对象B又同时使用了原来的指针来分配内存，导致对象AB占用了相同的一块空间。<ul>
+<li><strong>第一种</strong>，对分配内存空间的动作进行<strong>同步处理</strong>。</li>
+<li><strong>第二种</strong>，每个线程在堆中预先分配一小块内存，称为<strong>本地线程分配缓存(TLAB)</strong>，每个线程只在自己的 TLAB 中分配内存。</li>
+</ul>
+</li>
+<li>最后，对象被成功分配内存空间，虚拟机会对对象进行必要的设置，对象的类，对象的哈希码等信息都存放在对象的对象头中，所以分配的内存大小绝不止属性的总和。</li>
+</ol>
+<h3 id="七、对象的内存布局"><a href="#七、对象的内存布局" class="headerlink" title="七、对象的内存布局"></a>七、对象的内存布局</h3><hr>
+<p>对于大部分的虚拟机，对象在堆中的存储布局可以分为3块区域：</p>
+<ul>
+<li><strong>对象头</strong>，包括两部分信息，第一部分用于存储对象自身运行时数据，例如哈希码(HashCode)、GC分代年龄、锁状态标志、线程持有的锁、偏向线程ID、偏向时间戳，官方称为”Mark Word”。另外一部分是类型指针，即对象指向它的类元数据指针(即指向方法区类数据的指针)。</li>
+<li><strong>实例数据</strong>，存放着对象真正存储的有效信息，包括了父类继承和子类定义的信息。</li>
+<li><strong>对齐填充</strong>，占位符作用。</li>
+</ul>
+<h3 id="八、对象的访问定位"><a href="#八、对象的访问定位" class="headerlink" title="八、对象的访问定位"></a>八、对象的访问定位</h3><hr>
+<blockquote>
+<p>引用存放在虚拟机栈中，数据类型为reference，对象实例存放在堆中。</p>
+</blockquote>
+<p>Java程序就是通过栈上的reference数据来操作堆上的具体对象。目前，主流的访问方式有<strong>使用句柄</strong>和<strong>直接指针</strong>两种。</p>
+<ol>
+<li><strong>使用句柄来访问对象</strong><br>使用句柄的话，将会在Java堆中划分一块区域作为<strong>句柄池</strong>，引用中存储的就是对象的句柄地址，而句柄中包含了对象实例数据与类型数据各自的具体地址信息。<blockquote>
+<p>优势：在对象被移动时(比如垃圾回收)只会改变句柄中的实例数据指针，而引用本身不需要修改。</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="https://www.tuchuang001.com/images/2017/03/20/8910409121c7ffcd.jpg" alt=""></p>
+<ol>
+<li><strong>通过指针来访问对象</strong><br>使用直接指针访问，那么Java堆对象的布局中就必须考虑如何放置访问类型数据的相关信息，而引用中存储的直接就是对象地址。<blockquote>
+<p>优势：访问速度快，节省了一次指针定位(访问对象是非常频繁的操作)的时间开销。</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="https://www.tuchuang001.com/images/2017/03/20/5140cd3c996c905a.jpg" alt=""></p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li>《收入了解Java虚拟机》(周志明 著)</li>
+<li>(String类intern()方法)<a href="http://www.jianshu.com/p/95f516cb75ef" target="_blank" rel="external">http://www.jianshu.com/p/95f516cb75ef</a></li>
+</ul>
+
         
         </div>
         <footer class="article-footer">
@@ -300,13 +429,23 @@ var _hmt = _hmt || [];
 
             
     
-        <a href="https://zggdczfr.cn/my_works/index.html#comments" class="article-comment-link ds-thread-count" data-thread-key="https://zggdczfr.cn/my_works/index.html">评论</a>
+        <a href="https://zggdczfr.cn/2017/03/20/JVM学习笔记-一-Java内存区域/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://zggdczfr.cn/2017/03/20/JVM学习笔记-一-Java内存区域/">评论</a>
     
 
         </footer>
     </div>
     
         
+<nav id="article-nav">
+    
+    
+        <a href="/2017/03/18/(转)Spring-Cloud构建微服务架构-服务网关/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">(转)Spring Cloud构建微服务架构:服务网关</div>
+        </a>
+    
+</nav>
+
 
     
 </article>
@@ -316,7 +455,7 @@ var _hmt = _hmt || [];
     <section id="comments">
     
         
-    <div class="ds-thread" data-thread-key="my_works/index.html" data-title="MY WORKS" data-url="https://zggdczfr.cn/my_works/index.html"></div>
+    <div class="ds-thread" data-thread-key="2017/03/20/JVM学习笔记-一-Java内存区域/" data-title="JVM学习笔记(一) Java内存区域" data-url="https://zggdczfr.cn/2017/03/20/JVM学习笔记-一-Java内存区域/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
