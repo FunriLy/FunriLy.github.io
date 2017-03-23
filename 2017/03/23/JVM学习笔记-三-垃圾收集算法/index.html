@@ -3,17 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>标签: https | FunriLySpace</title>
+    <title>JVM学习笔记(三) 垃圾收集算法 | FunriLySpace</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="FunriLySpace">
-<meta property="og:url" content="https://zggdczfr.cn/tags/https/index.html">
+    <meta name="description" content="垃圾收集算法主要有以下几种： 标记-清除算法(Mark-Sweep)、复制算法(Copying) 和 标记-整理算法(Mark-Compact)。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM学习笔记(三) 垃圾收集算法">
+<meta property="og:url" content="https://zggdczfr.cn/2017/03/23/JVM学习笔记-三-垃圾收集算法/index.html">
 <meta property="og:site_name" content="FunriLySpace">
-<meta property="og:description" content="天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。">
+<meta property="og:description" content="垃圾收集算法主要有以下几种： 标记-清除算法(Mark-Sweep)、复制算法(Copying) 和 标记-整理算法(Mark-Compact)。">
+<meta property="og:image" content="https://www.tuchuang001.com/images/2017/03/23/c92e380c8e66a310.th.png">
+<meta property="og:updated_time" content="2017-03-23T09:00:50.885Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FunriLySpace">
-<meta name="twitter:description" content="天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。">
+<meta name="twitter:title" content="JVM学习笔记(三) 垃圾收集算法">
+<meta name="twitter:description" content="垃圾收集算法主要有以下几种： 标记-清除算法(Mark-Sweep)、复制算法(Copying) 和 标记-整理算法(Mark-Compact)。">
+<meta name="twitter:image" content="https://www.tuchuang001.com/images/2017/03/23/c92e380c8e66a310.th.png">
     
 
     
@@ -215,50 +218,224 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main">
-<div class="timeline timeline-wrap">
-    <div class="timeline-row timeline-row-major">
-        <span class="node"><i class="fa fa-tag"></i></span>
-        <h1 class="title">#https</h1>
-    </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+            <section id="main"><article id="post-JVM学习笔记-三-垃圾收集算法" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/02/25/让个人域名下GithubPage完美支持https/">让个人域名下GithubPage完美支持https</a>
+        <h1 class="article-title" itemprop="name">
+            JVM学习笔记(三) 垃圾收集算法
         </h1>
     
 
-                <div class="article-meta">
-                    
+                
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/02/25/让个人域名下GithubPage完美支持https/">
-            <time datetime="2017-02-25T12:04:03.000Z" itemprop="datePublished">2017-02-25</time>
+        <a href="/2017/03/23/JVM学习笔记-三-垃圾收集算法/">
+            <time datetime="2017-03-23T08:56:12.000Z" itemprop="datePublished">2017-03-23</time>
         </a>
     </div>
 
 
-                    
+                        
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/其他奇奇怪怪的/">其他奇奇怪怪的</a>
+        <a class="article-category-link" href="/categories/JVM学习笔记/">JVM学习笔记</a>
     </div>
 
-                    
+                        
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/https/">https</a>
+        <a class="tag-link" href="/tags/java/">java</a>
     </div>
 
-                </div>
-            </div>
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>垃圾收集算法主要有以下几种： 标记-清除算法(Mark-Sweep)、复制算法(Copying) 和 标记-整理算法(Mark-Compact)。<br><a id="more"></a></p>
+<h2 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h2><blockquote>
+<p>主要通过阅读《深入了解Java虚拟机》(周志明 著)和网络资源汇集而成，为本人学习JVM的笔记。同时，本文理论基于JDK 1.7版本，暂不考虑 1.8和1.9 的新特性，但可能初略提到。</p>
+</blockquote>
+<p><strong>垃圾收集算法主要有以下几种： 标记-清除算法(Mark-Sweep)、复制算法(Copying) 和 标记-整理算法(Mark-Compact)。</strong></p>
+<p><img src="https://www.tuchuang001.com/images/2017/03/23/c92e380c8e66a310.png" alt=""></p>
+<h3 id="标记-清除算法-Mark-Sweep"><a href="#标记-清除算法-Mark-Sweep" class="headerlink" title="标记-清除算法(Mark-Sweep)"></a>标记-清除算法(Mark-Sweep)</h3><p>首先标记出所有需要回收的对象，标记完成后统一回收所有被标记对象。<br><strong>主要不足之处：</strong></p>
+<ul>
+<li>效率问题<br>标记和清除两个过程的效率都不高。正如上篇笔记所记，GC会从 GC Roots 开始遍历标记，然后从 Java 堆从头到尾遍历清除垃圾。</li>
+<li>空间问题<br>会产生大量不连续的空间，所以无法分配大对象，最终因为空间问题不得不提前触发 GC 动作。</li>
+</ul>
+<p><img src="https://www.tuchuang001.com/images/2017/03/23/b860958e77945a5e.jpg" alt=""></p>
+<h3 id="复制算法-Copying"><a href="#复制算法-Copying" class="headerlink" title="复制算法(Copying)"></a>复制算法(Copying)</h3><blockquote>
+<p>复制算法是为了解决标记-清除算法的效率问题。</p>
+</blockquote>
+<p>将可用内存的容量分为大小相等的两块，每次只使用其中的一块，当这一块内存使用完了，就把存活着的对象复制到另外一块上面，然后再把已使用过的内存空间清理掉。但是，这种做法的代价是<strong>将内存缩小为原来的一半</strong>。</p>
+<p><img src="https://www.tuchuang001.com/images/2017/03/23/b8dfd437d6670c49.jpg" alt=""></p>
+<p><strong>关于该算法的商业应用：</strong></p>
+<ol>
+<li>目的：利用这种算法来回收新生代。</li>
+<li>方案：将内存分为 Eden 与 Survivor(有2块) 空间，比例一般为 8：1：1。每次回收将存活对象复制到一块 Survivor 空间，其他空间全部回收。</li>
+<li>空间保证(<strong>分配担保机制</strong>)：因为无法保证回收存活对象的内存大小，只能依赖其他内存(指老年代)进行分配担保。</li>
+<li>代价：每次回收只有一块 Survivor 空间(10%内存)被浪费。</li>
+</ol>
+<h3 id="标记-整理算法-Mark-Compact"><a href="#标记-整理算法-Mark-Compact" class="headerlink" title="标记-整理算法(Mark-Compact)"></a>标记-整理算法(Mark-Compact)</h3><p>在标记后不是对未标记的内存区域进行清理，二是让所有的存活对象都向一端移动，然后清理掉边界外的内存。该方法主要用于<strong>老年代</strong>。</p>
+<p><img src="https://www.tuchuang001.com/images/2017/03/23/c08c82bae4ad0b30.jpg" alt=""></p>
+<h3 id="分代收集算法"><a href="#分代收集算法" class="headerlink" title="分代收集算法"></a>分代收集算法</h3><p>将Java堆分为几个空间：</p>
+<ul>
+<li>新生代<ul>
+<li>特点：大批对象死去，只有少量存活。</li>
+<li>算法：复制算法。</li>
+</ul>
+</li>
+<li>老年代<ul>
+<li>特点：对象存活率高，没有额外空间进行分配担保。</li>
+<li>算法：标记-清除算法/标记-整理算法。</li>
+</ul>
+</li>
+</ul>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li>《深入了解Java虚拟机》(周志明 著)</li>
+</ul>
+
+        
         </div>
-    
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
 </div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
+
+</div>
+
+            
+    
+        <a href="https://zggdczfr.cn/2017/03/23/JVM学习笔记-三-垃圾收集算法/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://zggdczfr.cn/2017/03/23/JVM学习笔记-三-垃圾收集算法/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/03/21/JVM学习笔记-二-垃圾收集器/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">JVM学习笔记(二)垃圾收集器</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2017/03/23/JVM学习笔记-三-垃圾收集算法/" data-title="JVM学习笔记(三) 垃圾收集算法" data-url="https://zggdczfr.cn/2017/03/23/JVM学习笔记-三-垃圾收集算法/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
 </section>
             
                 <aside id="sidebar">
