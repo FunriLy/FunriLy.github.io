@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>JAVA并行程序基础 | FunriLySpace</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="《实战Java高并发程序设计》学习笔记(一) : JAVA并行程序基础。主要记录了一些Java并行程序的基础知识。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA并行程序基础">
+<meta property="og:url" content="https://zggdczfr.cn/2017/03/30/JAVA并行程序基础/index.html">
+<meta property="og:site_name" content="FunriLySpace">
+<meta property="og:description" content="《实战Java高并发程序设计》学习笔记(一) : JAVA并行程序基础。主要记录了一些Java并行程序的基础知识。">
+<meta property="og:image" content="https://www.tuchuang001.com/images/2017/03/30/JAVA_1.png">
+<meta property="og:updated_time" content="2017-03-30T11:47:27.136Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JAVA并行程序基础">
+<meta name="twitter:description" content="《实战Java高并发程序设计》学习笔记(一) : JAVA并行程序基础。主要记录了一些Java并行程序的基础知识。">
+<meta name="twitter:image" content="https://www.tuchuang001.com/images/2017/03/30/JAVA_1.png">
+    
+
+    
+        <link rel="alternate" href="/" title="FunriLySpace" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/css/images/FR.png" />
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?1ceed5b12c2b56c1e26eda88e4a211fb";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">FunriLySpace</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">主页</a>
+                
+                    <a class="main-nav-link" href="/archives">目录</a>
+                
+                    <a class="main-nav-link" href="/aboutme">关于我</a>
+                
+                    <a class="main-nav-link" href="/my_works">我的工作</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/FR2.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">主页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">目录</a></td>
+                
+                    <td><a class="main-nav-link" href="/aboutme">关于我</a></td>
+                
+                    <td><a class="main-nav-link" href="/my_works">我的工作</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/FR2.png" />
+            <h2 id="name">FunriLy</h2>
+            <h3 id="title">天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>中国, 广东</span>
+            <a id="follow" target="_blank" href="https://github.com/FunriLy/">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                18
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                4
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/FunriLy/" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="twitter" class=tooltip>
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="facebook" class=tooltip>
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="dribbble" class=tooltip>
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-JAVA并行程序基础" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            JAVA并行程序基础
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/03/30/JAVA并行程序基础/">
+            <time datetime="2017-03-30T11:13:34.000Z" itemprop="datePublished">2017-03-30</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/高并发学习笔记/">高并发学习笔记</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/java/">java</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>《实战Java高并发程序设计》学习笔记(一) : JAVA并行程序基础。<br>主要记录了一些Java并行程序的基础知识。<br><a id="more"></a></p>
+<h2 id="JAVA并行程序基础"><a href="#JAVA并行程序基础" class="headerlink" title="JAVA并行程序基础"></a>JAVA并行程序基础</h2><p><img src="https://www.tuchuang001.com/images/2017/03/30/JAVA_1.png" alt=""></p>
+<h3 id="一、有关线程你必须知道的事"><a href="#一、有关线程你必须知道的事" class="headerlink" title="一、有关线程你必须知道的事"></a>一、有关线程你必须知道的事</h3><h4 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h4><ol>
+<li>在等待面向线程设计的计算机结构中，进程是线程的容器。我们都知道，程序是对于指令、数据及其组织形式的描述，而进程是程序的实体。</li>
+<li>线程是轻量级的进程，是程序执行的最小单位。(PS:使用多线程去进行并发程序的设计，是因为线程间的调度和切换成本远小于进程)</li>
+<li>线程的状态(Thread的State类)：<ul>
+<li>NEW–刚刚创建的线程，需要调用start()方法来执行线程；</li>
+<li>RUNNABLE–线程处于执行状态；</li>
+<li>BLOCKED–线程遇到synchronized同步块，会暂停执行直到获得请求的锁；</li>
+<li>WAITING–无限制时间的等待；</li>
+<li>TIMED_WAITING–有限制时间的等待；</li>
+<li>TERMINATED–执行完毕，表示结束。</li>
+</ul>
+</li>
+</ol>
+<h3 id="二、线程的基本操作"><a href="#二、线程的基本操作" class="headerlink" title="二、线程的基本操作"></a>二、线程的基本操作</h3><h4 id="创建线程"><a href="#创建线程" class="headerlink" title="创建线程"></a>创建线程</h4><p>代码示例：start()方法会新建线程并调用run()方法！<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Thread t = <span class="keyword">new</span> Thread();</div><div class="line">t.start();</div></pre></td></tr></table></figure></p>
+<p><strong>注意以下代码：</strong>这段代码也可以编译执行，但不能新建一个线程，而是在当前线程中调用run()方法。(PS:就是作为一个普通方法来调用)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Thread t = <span class="keyword">new</span> Thread();</div><div class="line">t.run();</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>不能用run()来开启线程，它只会在当前线程中串行执行run()方法。</p>
+</blockquote>
+<p>另外，Thread类有一个非常重要的构造方法：<br><code>public Thread(Runnable target)</code><br>这个构造方法在start()调用时，新线程会执行Runnable.run()方法。实际上，<strong>默认的Thread.run()也是这样子做的</strong>。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Thread t = <span class="keyword">new</span> Thread(<span class="keyword">new</span> MyThread());</div><div class="line">        t.start();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"开启新线程执行run()方法"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>继承Thread的方式定义线程后，就不能在继承其他的类了，导致程序的可扩展性大大降低。而且<strong>重载</strong>run()方法也只是和普通方法一样，不会被JVM主动调用。</li>
+<li>使用实现Runnable接口并传入实例给Thread，可以避免重载Thread.run()，单纯使用接口来定义Thread。</li>
+</ul>
+<h4 id="终止线程"><a href="#终止线程" class="headerlink" title="终止线程"></a>终止线程</h4><p>JAVA提供了一个stop()方法来关闭线程，不过这是一个被标注为废弃的方法。原因是<strong>stop()方法太过暴力</strong>，强行将执行到一半的线程关闭可能导致一些数据不一致的问题。</p>
+<blockquote>
+<p>一帮情况下，不要使用 stop() 方法！</p>
+</blockquote>
+<p>解决方法：定义一个标记变量<code>stopme</code>，用于指示线程是否需要退出。</p>
+<h4 id="线程中断"><a href="#线程中断" class="headerlink" title="线程中断"></a>线程中断</h4><p>在JAVA中，为了完善线程安全退出，有一种重要的线程协作机制————线程中断。(<strong>注意</strong>：线程中断会给线程发送一个通知，但线程接到通知后如何处理，则由目标线程自行决定)</p>
+<ul>
+<li><p>线程中断的三个重要方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> Thread.interrupt()                  <span class="comment">//中断线程</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">boolean</span> Thread.isInterrupted()           <span class="comment">//判断线程是否被中断</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> Thread.interrupted()      <span class="comment">//判断线程是否被中断，并清除当前中断状态</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><code>Thread.interrupt()</code>方法中断，线程不会立刻停下来，比如死循环体。可以通过<code>isInterrupted()</code>方法来判断是否跳出循环体。</p>
+</li>
+</ul>
+<h4 id="线程休眠"><a href="#线程休眠" class="headerlink" title="线程休眠"></a>线程休眠</h4><ol>
+<li><p>Thread.sleep()<br>让当前线程休眠若干时间，其签名如下：<br><code>public static native void sleep(long millis) throws InterruptedException</code></p>
+<ul>
+<li>InterruptedException不是运行时异常，当线程处于休眠状态时，如果被中断就会抛出这个异常。</li>
+<li>sleep()方法由于中断抛出异常时，会<strong>清除中断标记</strong>。所以，在异常处理中需要再次设置中断标记！</li>
+</ul>
+</li>
+<li><p>Thread.wait()与notify()<br>这两个方法是配套的，一个线程调用<code>obj.wait()</code>处于等待状态，需要其他线程调用<code>obj.notify()</code>来唤醒。<strong>obj对象就是多个线程间有效通信手段</strong>。</p>
+<ul>
+<li>Object.wait() 必须<strong>包含在 synchronzied 语句</strong>中，无论是 wait() 还是 notify() 都需要先获得目标对象的一个监视器。(PS:这两个方法都是执行后立刻释放监视器，防止其他等待对象线程因为该线程休眠而全部无法正常执行)</li>
+<li>Object.wait() 同样会抛出<code>InterruptedException</code>异常。</li>
+<li>Object.notifyAll() 方法会唤醒等待队列中所有等待的线程。</li>
+</ul>
+</li>
+<li><p>suspengd()与resume()<br>前者是线程挂起，后者是继续执行，这是一对互相配合的方法。<strong>这两个也是已经被废弃的方法</strong>，了解一下就行了。</p>
+<ul>
+<li>suspend() 会导致休眠线程的所有资源都不会被释放，直到执行 resume() 方法。(如果两个方法，后者执行于前者之前，则线程很难有机会被继续执行)</li>
+<li>对于被挂起的线程，其状态是<code>Runnable</code>，这会严重影响到我们对于系统当前状态的判断。(不可饶恕)</li>
+</ul>
+</li>
+<li><p>join()与yield()</p>
+<ul>
+<li><p>join() 方法<br>其签名如下：<br><code>public final void join() throws InterruptedException;</code><br><code>public final void join(long millis) throws InterruptedException;</code><br>第一个方法表示无限等待；第二个方法表示一定时间的等待。join()方法会阻塞当前线程，直到目标线程结束，或者到达阻塞时间。<br>同时，join()方法的本质是让在当前线程对象实例上调用线程的wait()方法。</p>
+</li>
+<li><p>yield() 方法<br>其签名如下：<br><code>public static native void yield();</code><br>这个静态方法会使当前线程让出CPU。(PS:但还是会进行CPU资源的抢夺)</p>
+<blockquote>
+<p>当某个线程不是那么重要，或者优先级别较低，可以在适当时候调用 Thread.yield()，给予其他重要线程更多工作机会。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="关于线程操作的补充"><a href="#关于线程操作的补充" class="headerlink" title="关于线程操作的补充"></a>关于线程操作的补充</h4><ol>
+<li>sleep() 与 wait() 的区别<br>Object.wait() 和 Thread.sleep() 都可以让线程等待若干时间。除了<strong>wait() 可以被唤醒</strong>外，另外一个主要区别：<strong>wait() 方法会释放目标对象的锁，而 sleep() 方法不会释放任何资源</strong>。</li>
+</ol>
+<h3 id="三、分门别类的管理：线程组"><a href="#三、分门别类的管理：线程组" class="headerlink" title="三、分门别类的管理：线程组"></a>三、分门别类的管理：线程组</h3><p>简单建立一个线程组(<strong>代码来源于《实战Java高并发程序设计》书中</strong>)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="comment">//创建一个叫"PrintGroup"的线程组</span></div><div class="line">        ThreadGroup tg = <span class="keyword">new</span> ThreadGroup(<span class="string">"PrintGroup"</span>);</div><div class="line">        Thread t1 = <span class="keyword">new</span> Thread(tg, <span class="keyword">new</span> MyThread(), <span class="string">"T1"</span>);   <span class="comment">//加入线程组</span></div><div class="line">        Thread t2 = <span class="keyword">new</span> Thread(tg, <span class="keyword">new</span> MyThread(), <span class="string">"T2"</span>);</div><div class="line">        t1.start();</div><div class="line">        t2.start();</div><div class="line">        <span class="comment">//由于线程是动态的，activeCount()获得活动线程总数的估算值</span></div><div class="line">        System.out.println(<span class="string">"活动线程总数 = "</span> + tg.activeCount());</div><div class="line">        <span class="comment">//打印出线程组的线程信息</span></div><div class="line">        tg.list();</div><div class="line">        <span class="comment">//注意这个方法与Thread.stop()方法遇到问题一样</span></div><div class="line">        tg.stop();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">        String groupAndName = Thread.currentThread().getThreadGroup().getName()</div><div class="line">                + <span class="string">"---"</span> + Thread.currentThread().getName();</div><div class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</div><div class="line">            System.out.println(<span class="string">"I am "</span> + groupAndName);</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                Thread.sleep(<span class="number">3000</span>);</div><div class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e)&#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="四、驻守后台的守护线程"><a href="#四、驻守后台的守护线程" class="headerlink" title="四、驻守后台的守护线程"></a>四、驻守后台的守护线程</h3><p>守护线程，是系统的守护者，在后台完成系统性的服务，比如垃圾回收线程、JIT线程等。<strong>当一个Java应用内只有守护线程时，Java虚拟机就会自然退出</strong>。<br>将线程设置为守护线程：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">        Thread t = <span class="keyword">new</span> Thread(<span class="keyword">new</span> MyThread());</div><div class="line">        t.setDaemon(<span class="keyword">true</span>);</div><div class="line">        t.start();</div></pre></td></tr></table></figure></p>
+<p>注意：<strong>设置守护线程必须在线程start()之前设置</strong>，否则会得到一个<code>IllegalThreadStateException</code>，但程序和线程依然可以正常执行，只是线程被当作用户线程而已。</p>
+<h3 id="五、线程优先级"><a href="#五、线程优先级" class="headerlink" title="五、线程优先级"></a>五、线程优先级</h3><p>Java中线程可以有自己的优先级。由于线程的优先级调度和底层操作系统有密切关系，在各个平台表现不一，无法精准控制。<br>在Java中，使用 1 到 10 表示线程优先级。一般可以使用三个内置的静态标量表示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> MIN_PRIORITY = <span class="number">1</span>;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> NORM_PRIORITY = <span class="number">5</span>;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> MAX_PRIORITY = <span class="number">10</span>;</div></pre></td></tr></table></figure></p>
+<p>PS：数字越大，优先级越高(一般情况)。</p>
+<h3 id="六、synchronized-关键字"><a href="#六、synchronized-关键字" class="headerlink" title="六、synchronized 关键字"></a>六、synchronized 关键字</h3><p>synchronized 关键字用法简单记录：</p>
+<ul>
+<li>指定加锁对象：对给定对象加锁，进入同步代码前要获得给定对象的锁。</li>
+<li>直接作用于实例对象：相当于对当前实例加锁，进入同步代码前要获得当前实例的锁。</li>
+<li>直接作用于静态方法：相当于对当前类加锁，进入同步代码前要获得当前类的锁。</li>
+</ul>
+<p>synchronized 可以保证线程间的原子性、可见性和有序性(被 synchronized 限制的多个线程是串行执行的)。</p>
+<h3 id="七、部分隐秘的错误记录"><a href="#七、部分隐秘的错误记录" class="headerlink" title="七、部分隐秘的错误记录"></a>七、部分隐秘的错误记录</h3><ul>
+<li>执行(synchronized)同步代码的两个线程指向了不同的Runnable实例，即两个线程使用了两个不同的锁。<strong>解决方法</strong>：将同步代码修改为静态(static)方法。</li>
+<li>使用线程不安全的容器，如 ArrayList、HashMap 等。<strong>解决方法</strong>：改用线程安全的容器，如 Vector、ConcurrentHashMap。</li>
+<li>不变对象加锁，导致对于临界区代码控制出现问题。<ul>
+<li>不变对象：对象一旦被创建，就不能修改。<br>(如，<code>Integer i; i++</code>的本质是创建一个新的Integer对象，并将引用赋值给i，同时这里涉及到Integer引用的特性)</li>
+</ul>
+</li>
+</ul>
+<h3 id="八、参考资料"><a href="#八、参考资料" class="headerlink" title="八、参考资料"></a>八、参考资料</h3><ul>
+<li>《实战Java高并发程序设计》(葛一鸣 郭超 著)</li>
+</ul>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
+</div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
+
+</div>
+
+            
+    
+        <a href="https://zggdczfr.cn/2017/03/30/JAVA并行程序基础/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://zggdczfr.cn/2017/03/30/JAVA并行程序基础/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/03/30/多线程的同步控制/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    多线程的同步控制
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/03/23/JVM学习笔记-三-垃圾收集算法/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">JVM学习笔记(三) 垃圾收集算法</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2017/03/30/JAVA并行程序基础/" data-title="JAVA并行程序基础" data-url="https://zggdczfr.cn/2017/03/30/JAVA并行程序基础/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/03/30/多线程的同步控制/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.tuchuang001.com/images/2017/03/30/JAVA_2.png)" alt="多线程的同步控制" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/高并发学习笔记/">高并发学习笔记</a></p>
+                            <p class="item-title"><a href="/2017/03/30/多线程的同步控制/" class="title">多线程的同步控制</a></p>
+                            <p class="item-date"><time datetime="2017-03-30T11:48:12.000Z" itemprop="datePublished">2017-03-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/03/30/JAVA并行程序基础/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.tuchuang001.com/images/2017/03/30/JAVA_1.png)" alt="JAVA并行程序基础" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/高并发学习笔记/">高并发学习笔记</a></p>
+                            <p class="item-title"><a href="/2017/03/30/JAVA并行程序基础/" class="title">JAVA并行程序基础</a></p>
+                            <p class="item-date"><time datetime="2017-03-30T11:13:34.000Z" itemprop="datePublished">2017-03-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/03/23/JVM学习笔记-三-垃圾收集算法/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.tuchuang001.com/images/2017/03/23/c92e380c8e66a310.png)" alt="JVM学习笔记(三) 垃圾收集算法" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/JVM学习笔记/">JVM学习笔记</a></p>
+                            <p class="item-title"><a href="/2017/03/23/JVM学习笔记-三-垃圾收集算法/" class="title">JVM学习笔记(三) 垃圾收集算法</a></p>
+                            <p class="item-date"><time datetime="2017-03-23T08:56:12.000Z" itemprop="datePublished">2017-03-23</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/03/21/JVM学习笔记-二-垃圾收集器/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://www.tuchuang001.com/images/2017/03/22/4c499a969d615d1b.png)" alt="JVM学习笔记(二)垃圾收集器" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/JVM学习笔记/">JVM学习笔记</a></p>
+                            <p class="item-title"><a href="/2017/03/21/JVM学习笔记-二-垃圾收集器/" class="title">JVM学习笔记(二)垃圾收集器</a></p>
+                            <p class="item-date"><time datetime="2017-03-21T11:09:22.000Z" itemprop="datePublished">2017-03-21</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/03/20/JVM学习笔记-一-Java内存区域/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://sfault-image.b0.upaiyun.com/147/142/1471427608-558abc24ef69f_articlex)" alt="JVM学习笔记(一) Java内存区域" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/JVM学习笔记/">JVM学习笔记</a></p>
+                            <p class="item-title"><a href="/2017/03/20/JVM学习笔记-一-Java内存区域/" class="title">JVM学习笔记(一) Java内存区域</a></p>
+                            <p class="item-date"><time datetime="2017-03-19T16:10:46.000Z" itemprop="datePublished">2017-03-20</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JVM学习笔记/">JVM学习笔记</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring-cloud/">spring cloud</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring-session/">spring session</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他奇奇怪怪的/">其他奇奇怪怪的</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记感悟/">随记感悟</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/高并发学习笔记/">高并发学习笔记</a><span class="category-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">11</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring-cloud/">spring cloud</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring-session/">spring session</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/spring-cloud/" style="font-size: 20px;">spring cloud</a> <a href="/tags/spring-session/" style="font-size: 10px;">spring session</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 FunriLy<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'funrily'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = '/js/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
