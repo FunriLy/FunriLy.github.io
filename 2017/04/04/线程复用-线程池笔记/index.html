@@ -3,17 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>归档 | FunriLySpace</title>
+    <title>线程复用:线程池笔记 | FunriLySpace</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="FunriLySpace">
-<meta property="og:url" content="https://zggdczfr.cn/archives/index.html">
+    <meta name="description" content="《实战Java高并发程序设计》学习笔记(三) : JAVA线程池笔记。主要记录了一些Java线程池的基础知识。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线程复用:线程池笔记">
+<meta property="og:url" content="https://zggdczfr.cn/2017/04/04/线程复用-线程池笔记/index.html">
 <meta property="og:site_name" content="FunriLySpace">
-<meta property="og:description" content="天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。">
+<meta property="og:description" content="《实战Java高并发程序设计》学习笔记(三) : JAVA线程池笔记。主要记录了一些Java线程池的基础知识。">
+<meta property="og:image" content="https://www.tuchuang001.com/images/2017/03/30/JAVA_1.png">
+<meta property="og:updated_time" content="2017-04-04T15:12:26.340Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FunriLySpace">
-<meta name="twitter:description" content="天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。">
+<meta name="twitter:title" content="线程复用:线程池笔记">
+<meta name="twitter:description" content="《实战Java高并发程序设计》学习笔记(三) : JAVA线程池笔记。主要记录了一些Java线程池的基础知识。">
+<meta name="twitter:image" content="https://www.tuchuang001.com/images/2017/03/30/JAVA_1.png">
     
 
     
@@ -215,25 +218,21 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main"><div class="timeline timeline-wrap">
-    
-            <div class="timeline-row timeline-row-major">
-                <span class="node"><i class="fa fa-calendar"></i></span>
-                <h1 class="title">2017</h1>
-            </div>
+            <section id="main"><article id="post-线程复用-线程池笔记" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/04/04/线程复用-线程池笔记/">线程复用:线程池笔记</a>
+        <h1 class="article-title" itemprop="name">
+            线程复用:线程池笔记
         </h1>
     
 
-                <div class="article-meta">
-                    
+                
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/2017/04/04/线程复用-线程池笔记/">
@@ -242,279 +241,228 @@ var _hmt = _hmt || [];
     </div>
 
 
-                    
+                        
     <div class="article-category">
     	<i class="fa fa-folder"></i>
         <a class="article-category-link" href="/categories/高并发学习笔记/">高并发学习笔记</a>
     </div>
 
-                    
+                        
     <div class="article-tag">
         <i class="fa fa-tag"></i>
         <a class="tag-link" href="/tags/java/">java</a>
     </div>
 
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+                    </div>
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/03/30/多线程的同步控制/">多线程的同步控制</a>
-        </h1>
-    
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>《实战Java高并发程序设计》学习笔记(三) : JAVA线程池笔记。<br>主要记录了一些Java线程池的基础知识。<br><a id="more"></a></p>
+<h2 id="线程复用：线程池"><a href="#线程复用：线程池" class="headerlink" title="线程复用：线程池"></a>线程复用：线程池</h2><h3 id="线程池总概"><a href="#线程池总概" class="headerlink" title="线程池总概"></a>线程池总概</h3><h4 id="什么是线程池？"><a href="#什么是线程池？" class="headerlink" title="什么是线程池？"></a>什么是线程池？</h4><p>接触过JDBC的人，一定听说过数据库连接池(比如，c3p0、Druid等)。其实在我的理解中，两者是差不多的。不过线程池中放的是线程而已。<br>线程是一种轻量级工具，但其创建与关闭都需要花费一定的时间。而且大量的线程会抢占内存资源。<strong>盲目的大量资源会对系统造成极大的压力。</strong><br>线程池，中有一定数量的活跃线程。创建线程变成了从线程池中获得空闲线程；关闭线程变成了向线程池归还线程。</p>
+<h4 id="JDK对于线程池的支持"><a href="#JDK对于线程池的支持" class="headerlink" title="JDK对于线程池的支持"></a>JDK对于线程池的支持</h4><p>Java通过Executors提供五种线程池，分别为：</p>
+<ul>
+<li><code>newCachedThreadPool</code>创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。</li>
+<li><code>newFixedThreadPool</code>创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。</li>
+<li><code>newScheduledThreadPool</code>创建一个定长线程池，支持定时及周期性任务执行。</li>
+<li><code>newSingleThreadExecutor</code>创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。</li>
+<li><code>newSingleThreadScheduledExcutor</code>创建单线程化的线程池，支持定时及周期性任务执行。</li>
+</ul>
+<h3 id="线程池的使用"><a href="#线程池的使用" class="headerlink" title="线程池的使用"></a>线程池的使用</h3><p>首先是简单使用，这个没有什么特殊之处。<br>只需记得<code>newFixedThreadPool</code>创建的是定长的线程池，<strong>可控制线程最大并发数</strong>，超出的线程会在队列中等待。<br>而<code>newCachedThreadPool</code>创建的线程池为无限大，当执行第二个任务时第一个任务已经完成，会复用执行第一个任务的线程，而<strong>不用每次新建线程</strong>。</p>
+<h4 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h4><p><code>newScheduledThreadPool</code>支持定时及周期性任务执行，查看了其源码，主要有以下三种方法：</p>
+<ul>
+<li>schedule()：在给定时间，对任务进行调度；</li>
+<li>scheduleAtFixedRate() 和 scheduleWithFixedDelay()：对任务进行周期性调度，但两者有所区别。</li>
+</ul>
+<h5 id="scheduleAtFixedRate-和-scheduleWithFixedDelay-的区别"><a href="#scheduleAtFixedRate-和-scheduleWithFixedDelay-的区别" class="headerlink" title="scheduleAtFixedRate() 和 scheduleWithFixedDelay() 的区别"></a>scheduleAtFixedRate() 和 scheduleWithFixedDelay() 的区别</h5><ol>
+<li>两种调度的区别：<ul>
+<li>FixedRate 方式：以上一个任务开始执行时间为起点，在之后的延迟时间后，调用下一次任务。</li>
+<li>FixedDelay 方式：上一个任务结束后，再经过延迟时间进行任务调度。</li>
+</ul>
+</li>
+<li>若任务执行时间超过调度时间，<ul>
+<li>FixedRate 方式：若调度时间过短，那么任务会在上一个任务结束后立刻调用(不会出现任务堆叠的现场)。</li>
+<li>FixedDelay 方式：会严格按照<code>任务间隔时间 = 调度时间 + 任务执行时间</code>。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>如果任务遇到异常，那么后续的所有子任务都会停止调度。因此必须保证，异常被及时处理，为周期性任务的稳定调度提供条件。</p>
+</blockquote>
+<h3 id="关于线程池的记录"><a href="#关于线程池的记录" class="headerlink" title="关于线程池的记录"></a>关于线程池的记录</h3><h4 id="拒绝策略"><a href="#拒绝策略" class="headerlink" title="拒绝策略"></a>拒绝策略</h4><p>创建线程池的核心类 ThreadPoolExecutor 有一个参数指定了拒绝策略。<strong>拒绝策略</strong>，是系统超负荷运行时的补救措施，通常是由于压力太大而引起的，也就是线程池中的线程已经用完了且等待队列已经排满了。<br>JDK 提供了<strong>四种拒绝策略</strong>：</p>
+<ul>
+<li><em>AbortPolicy</em> 策略：直接抛出异常，阻止系统正常工作。</li>
+<li><em>CallerRnsPolicy</em> 策略：只要线程池未关闭，将直接在调用者线程中运行被丢弃的任务。这种做法不会真的丢弃任务，<strong>但是任务提交线程的性能将急剧下降</strong>。</li>
+<li><em>DiscardOldestPolicy</em> 策略：丢弃最老的一个请求，也就是即将被执行的任务(处于等待队列的队头)，并尝试再次提交当前任务。</li>
+<li><em>DiscardPolicy</em> 策略：直接丢掉无法处理的任务。</li>
+<li>自定义策略：自己扩展 RejectedExecutionHandler 接口。</li>
+</ul>
+<h4 id="线程扩展"><a href="#线程扩展" class="headerlink" title="线程扩展"></a>线程扩展</h4><p><code>ThreadPoolExecutor</code>是一个可扩展的线程池，有<code>beforeExecute()</code>、<code>afterExecute()</code>和<code>terminated()</code>能够对线程进行控制。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">beforeExecute</span><span class="params">(Thread t, Runnable r)</span> </span>&#123; &#125;</div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">afterExecute</span><span class="params">(Runnable r, Throwable t)</span> </span>&#123; &#125;</div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">terminated</span><span class="params">()</span> </span>&#123; &#125;</div></pre></td></tr></table></figure></p>
+<p>这是三个<code>protected</code>的空方法，摆明了可以让子类扩展。</p>
+<ul>
+<li>在执行任务的线程中将调用<code>beforeExecute</code>和<code>afterExecute</code>等方法，在这些方法中还可以添加日志、计时、监视或者统计信息收集的功能。</li>
+<li>无论是正常运行，还是抛出异常，都会调用<code>afterExecute</code>。但是，如果<strong>抛出Eorror</strong>，将不会调用该方法；或者<strong><code>beforeExecute</code>抛出一个<code>RuntimeException</code></strong>，则任务将不被执行，即该方法也不会被调用。</li>
+<li>关于<code>terminated</code>，在线程池完成关闭时(就是<strong>在所有任务已经完成且所有工作者线程已经关闭</strong>)，用来释放<code>Executor</code>在生命周期里分配的各种资源，此外还能执行信息通知、日志记录等功能。</li>
+</ul>
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><ol>
+<li><p>自定义线程：ThreadFactory<br>这个接口只有一个方法 <code>newThread(Runnable r)</code>，主要是由线程池调用新建线程。</p>
+</li>
+<li><p>优化线程池线程数量<br>在《Java Concurrency in Practice》书中给了一个估算线程池大小的经验公式：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Ncpu = CPU数量</div><div class="line">Ucpu = 目标CPU的使用率，0 &lt;= Ucpu &lt;= 1</div><div class="line">W/C = 等待时间与计算时间的比率</div><div class="line">所以，最优的线程池大小为：</div><div class="line">Nthreads = Ncpu * Ucpu * ( 1 + W/C )</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>同时，在Java中，可以通过<code>Runtime.getRuntime().availableProcessors</code>获取可用的CPU数量。</p>
+<ol>
+<li><p>使用线程池被”吃”掉了异常堆栈信息<br>在使用线程池提交线程时，可能会发生异常堆栈信息被”吃”掉的现象，而解决方法：</p>
+<ul>
+<li>放弃submit()，改用execute()。</li>
+<li><p>获取submit()方法返回类的get()方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Future future = pools.submit(<span class="keyword">new</span> Thread());</div><div class="line">future.get();</div></pre></td></tr></table></figure>
+</li>
+<li><p>扩展 ThreadPoolExecutor 线程池，让其在调度任务前，先保存提交任务线程的堆栈消息(就是重写线程池线程的调用方法)。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li>《实战Java高并发程序设计》(葛一鸣 郭超 著)</li>
+</ul>
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/03/30/多线程的同步控制/">
-            <time datetime="2017-03-30T11:48:12.000Z" itemprop="datePublished">2017-03-30</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/高并发学习笔记/">高并发学习笔记</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/java/">java</a>
-    </div>
-
-                </div>
-            </div>
+        
         </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/03/30/JAVA并行程序基础/">JAVA并行程序基础</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/03/30/JAVA并行程序基础/">
-            <time datetime="2017-03-30T11:13:34.000Z" itemprop="datePublished">2017-03-30</time>
-        </a>
-    </div>
+        <footer class="article-footer">
+            <div class="share-container">
 
 
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/高并发学习笔记/">高并发学习笔记</a>
-    </div>
 
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/java/">java</a>
-    </div>
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
+</div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
 
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/03/23/JVM学习笔记-三-垃圾收集算法/">JVM学习笔记(三) 垃圾收集算法</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/03/23/JVM学习笔记-三-垃圾收集算法/">
-            <time datetime="2017-03-23T08:56:12.000Z" itemprop="datePublished">2017-03-23</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/JVM学习笔记/">JVM学习笔记</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/java/">java</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/03/21/JVM学习笔记-二-垃圾收集器/">JVM学习笔记(二)垃圾收集器</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/03/21/JVM学习笔记-二-垃圾收集器/">
-            <time datetime="2017-03-21T11:09:22.000Z" itemprop="datePublished">2017-03-21</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/JVM学习笔记/">JVM学习笔记</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/java/">java</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/03/20/JVM学习笔记-一-Java内存区域/">JVM学习笔记(一) Java内存区域</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/03/20/JVM学习笔记-一-Java内存区域/">
-            <time datetime="2017-03-19T16:10:46.000Z" itemprop="datePublished">2017-03-20</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/JVM学习笔记/">JVM学习笔记</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/java/">java</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/03/18/(转)Spring-Cloud构建微服务架构-服务网关/">(转)Spring Cloud构建微服务架构:服务网关</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/03/18/(转)Spring-Cloud构建微服务架构-服务网关/">
-            <time datetime="2017-03-18T01:59:12.000Z" itemprop="datePublished">2017-03-18</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/spring-cloud/">spring cloud</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/spring-cloud/">spring cloud</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/03/05/spring-session-单用户多账号登录/">spring session 单用户多账号登录</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/03/05/spring-session-单用户多账号登录/">
-            <time datetime="2017-03-05T09:09:33.000Z" itemprop="datePublished">2017-03-05</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/spring-session/">spring session</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/spring-session/">spring session</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
 </div>
 
-    <nav id="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/2/">下一页 &raquo;</a>
-    </nav>
+            
+    
+        <a href="https://zggdczfr.cn/2017/04/04/线程复用-线程池笔记/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://zggdczfr.cn/2017/04/04/线程复用-线程池笔记/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/03/30/多线程的同步控制/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">多线程的同步控制</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2017/04/04/线程复用-线程池笔记/" data-title="线程复用:线程池笔记" data-url="https://zggdczfr.cn/2017/04/04/线程复用-线程池笔记/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
 </section>
             
                 <aside id="sidebar">
