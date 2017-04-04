@@ -11,12 +11,12 @@
 <meta property="og:url" content="https://zggdczfr.cn/2017/04/04/线程复用-线程池笔记/index.html">
 <meta property="og:site_name" content="FunriLySpace">
 <meta property="og:description" content="《实战Java高并发程序设计》学习笔记(三) : JAVA线程池笔记。主要记录了一些Java线程池的基础知识。">
-<meta property="og:image" content="https://www.tuchuang001.com/images/2017/03/30/JAVA_1.png">
-<meta property="og:updated_time" content="2017-04-04T15:12:26.340Z">
+<meta property="og:image" content="https://www.tuchuang001.com/images/2017/02/07/FR.png">
+<meta property="og:updated_time" content="2017-04-04T15:18:02.323Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="线程复用:线程池笔记">
 <meta name="twitter:description" content="《实战Java高并发程序设计》学习笔记(三) : JAVA线程池笔记。主要记录了一些Java线程池的基础知识。">
-<meta name="twitter:image" content="https://www.tuchuang001.com/images/2017/03/30/JAVA_1.png">
+<meta name="twitter:image" content="https://www.tuchuang001.com/images/2017/02/07/FR.png">
     
 
     
@@ -308,14 +308,6 @@ var _hmt = _hmt || [];
 <li>关于<code>terminated</code>，在线程池完成关闭时(就是<strong>在所有任务已经完成且所有工作者线程已经关闭</strong>)，用来释放<code>Executor</code>在生命周期里分配的各种资源，此外还能执行信息通知、日志记录等功能。</li>
 </ul>
 <h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><ol>
-<li><p>自定义线程：ThreadFactory<br>这个接口只有一个方法 <code>newThread(Runnable r)</code>，主要是由线程池调用新建线程。</p>
-</li>
-<li><p>优化线程池线程数量<br>在《Java Concurrency in Practice》书中给了一个估算线程池大小的经验公式：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Ncpu = CPU数量</div><div class="line">Ucpu = 目标CPU的使用率，0 &lt;= Ucpu &lt;= 1</div><div class="line">W/C = 等待时间与计算时间的比率</div><div class="line">所以，最优的线程池大小为：</div><div class="line">Nthreads = Ncpu * Ucpu * ( 1 + W/C )</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>同时，在Java中，可以通过<code>Runtime.getRuntime().availableProcessors</code>获取可用的CPU数量。</p>
-<ol>
 <li><p>使用线程池被”吃”掉了异常堆栈信息<br>在使用线程池提交线程时，可能会发生异常堆栈信息被”吃”掉的现象，而解决方法：</p>
 <ul>
 <li>放弃submit()，改用execute()。</li>
@@ -326,7 +318,13 @@ var _hmt = _hmt || [];
 </li>
 </ul>
 </li>
+<li><p>自定义线程：ThreadFactory<br>这个接口只有一个方法 <code>newThread(Runnable r)</code>，主要是由线程池调用新建线程。</p>
+</li>
+<li><p>优化线程池线程数量<br>在《Java Concurrency in Practice》书中给了一个估算线程池大小的经验公式：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Ncpu = CPU数量</div><div class="line">Ucpu = 目标CPU的使用率，0 &lt;= Ucpu &lt;= 1</div><div class="line">W/C = 等待时间与计算时间的比率</div><div class="line">所以，最优的线程池大小为：</div><div class="line">Nthreads = Ncpu * Ucpu * ( 1 + W/C )</div></pre></td></tr></table></figure>
+</li>
 </ol>
+<p>同时，在Java中，可以通过<code>Runtime.getRuntime().availableProcessors</code>获取可用的CPU数量。</p>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
 <li>《实战Java高并发程序设计》(葛一鸣 郭超 著)</li>
 </ul>
@@ -479,7 +477,7 @@ var _hmt = _hmt || [];
                             <a href="/2017/04/04/线程复用-线程池笔记/" class="thumbnail">
     
     
-        <span style="background-image:url(https://www.tuchuang001.com/images/2017/03/30/JAVA_1.png)" alt="线程复用:线程池笔记" class="thumbnail-image"></span>
+        <span style="background-image:url(https://www.tuchuang001.com/images/2017/02/07/FR.png)" alt="线程复用:线程池笔记" class="thumbnail-image"></span>
     
 </a>
 
