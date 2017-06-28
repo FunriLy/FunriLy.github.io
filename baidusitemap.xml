@@ -4,8 +4,28 @@
 
     
   <url>
+    <loc>https://zggdczfr.cn/2017/06/28/Spring-Data-%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2017-06-28T03:21:52.669Z</lastmod>
+    <data>
+        <display>
+        <title>Spring Data 简单学习</title>
+        <pubTime>2017-06-28T03:10:44.000Z</pubTime>
+        
+        <tag>spring data</tag>
+         
+         
+           
+             
+              <breadCrumb title="spring data" url="https://zggdczfr.cn/categories/spring-data/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://zggdczfr.cn/2017/04/04/%E7%BA%BF%E7%A8%8B%E5%A4%8D%E7%94%A8-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2017-04-04T15:18:02.323Z</lastmod>
+    <lastmod>2017-04-04T15:18:21.741Z</lastmod>
     <data>
         <display>
         <title>线程复用:线程池笔记</title>
