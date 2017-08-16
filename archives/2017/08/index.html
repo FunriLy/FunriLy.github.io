@@ -3,17 +3,17 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Spring Cloud Config(续) | FunriLySpace</title>
+    <title>归档: 2017/8 | FunriLySpace</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="article">
-<meta property="og:title" content="Spring Cloud Config(续)">
-<meta property="og:url" content="https://zggdczfr.cn/2017/02/21/Spring-Cloud-Config-续/index.html">
+    <meta name="description" content="天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="FunriLySpace">
+<meta property="og:url" content="https://zggdczfr.cn/archives/2017/08/index.html">
 <meta property="og:site_name" content="FunriLySpace">
-<meta property="og:image" content="https://springcloud.cc/img/spring-cloud-config.png">
-<meta property="og:updated_time" content="2017-02-21T12:21:54.528Z">
+<meta property="og:description" content="天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring Cloud Config(续)">
-<meta name="twitter:image" content="https://springcloud.cc/img/spring-cloud-config.png">
+<meta name="twitter:title" content="FunriLySpace">
+<meta name="twitter:description" content="天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。">
     
 
     
@@ -215,219 +215,45 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main"><article id="post-Spring-Cloud-Config-续" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
+            <section id="main"><div class="timeline timeline-wrap">
+    
+            <div class="timeline-row timeline-row-major">
+                <span class="node"><i class="fa fa-calendar"></i></span>
+                <h1 class="title">2017</h1>
+            </div>
         
-        
-            <header class="article-header">
+        <div class="timeline-row">
+            <span class="node"></span>
+            <div class="content">
                 
     
-        <h1 class="article-title" itemprop="name">
-            Spring Cloud Config(续)
+        <h1 itemprop="name">
+            <a class="timeline-article-title" href="/2017/08/16/远方的家，或者是远方的未来？/">远方的家，或者是远方的未来？</a>
         </h1>
     
 
-                
-                    <div class="article-meta">
-                        
+                <div class="article-meta">
+                    
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/02/21/Spring-Cloud-Config-续/">
-            <time datetime="2017-02-21T12:17:49.000Z" itemprop="datePublished">2017-02-21</time>
+        <a href="/2017/08/16/远方的家，或者是远方的未来？/">
+            <time datetime="2017-08-16T05:57:41.000Z" itemprop="datePublished">2017-08-16</time>
         </a>
     </div>
 
 
-                        
+                    
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/spring-cloud/">spring cloud</a>
+        <a class="article-category-link" href="/categories/随记感悟/">随记感悟</a>
     </div>
 
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/spring-cloud/">spring cloud</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p><img src="https://springcloud.cc/img/spring-cloud-config.png" alt=""><br><a id="more"></a></p>
-<h2 id="Spring-Cloud-Config-续"><a href="#Spring-Cloud-Config-续" class="headerlink" title="Spring Cloud Config(续)"></a>Spring Cloud Config(续)</h2><h3 id="个人参考项目"><a href="#个人参考项目" class="headerlink" title="个人参考项目"></a>个人参考项目</h3><p>个人博客 : <a href="https://zggdczfr.cn/">https://zggdczfr.cn/</a><br>个人参考项目 : （整合到上一个案例中）<a href="https://github.com/FunriLy/springcloud-study/tree/master/%E6%A1%88%E4%BE%8B5" target="_blank" rel="external">https://github.com/FunriLy/springcloud-study/tree/master/%E6%A1%88%E4%BE%8B5</a></p>
-<h3 id="为-Config-Client-配置配置刷新"><a href="#为-Config-Client-配置配置刷新" class="headerlink" title="为 Config Client 配置配置刷新"></a>为 Config Client 配置配置刷新</h3><h5 id="场景介绍"><a href="#场景介绍" class="headerlink" title="场景介绍"></a>场景介绍</h5><p>在<a href="https://zggdczfr.cn/2017/02/20/Spring-Cloud-Config/">上一个案例</a>，我们成功配置了  Config Server 与 Config Client。依次启动两个项目。</p>
-<ul>
-<li><p>访问API接口 <a href="http://localhost:1111/config" target="_blank" rel="external">http://localhost:1111/config</a> 来获取配置信息：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">The Config Word Is : Hello World !</div></pre></td></tr></table></figure>
-</li>
-<li><p>利用 Git 提交我们修改后配置文件。</p>
-</li>
-<li><p>重新访问API接口 <a href="http://localhost:1111/config" target="_blank" rel="external">http://localhost:1111/config</a> 来获取配置信息：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">The Config Word Is : Hello World !</div></pre></td></tr></table></figure>
-</li>
-<li><p>由此可见，配置资源的更新不能即时通知到 Server Client。</p>
-</li>
-</ul>
-<h5 id="实现配置文件更新"><a href="#实现配置文件更新" class="headerlink" title="实现配置文件更新"></a>实现配置文件更新</h5><ul>
-<li><p>引入依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- actuator 监控 --&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>在 Controller层加入注解<code>@RefreshScope</code><br>如果 @Controller 是加在单独的类中声明的（不是在Application启动类上声明）。那么@RefreshScope要加在声明@Controller声明的类上，否则refresh之后Conroller拿不到最新的值，会默认调用缓存。</p>
-</li>
-<li><p>通过POST请求发送到 <a href="http://localhost:1111/refresh" target="_blank" rel="external">http://localhost:1111/refresh</a> ，我们可以看到以下内容：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">  <span class="string">"configword"</span></div><div class="line">]</div></pre></td></tr></table></figure>
-</li>
-<li><p>重新访问API接口 <a href="http://localhost:1111/config" target="_blank" rel="external">http://localhost:1111/config</a> 来获取配置信息：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">The Config Word Is : NewConfig !</div></pre></td></tr></table></figure>
-</li>
-</ul>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-    <div class="a2a_kit a2a_default_style">
-    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
-    <span class="a2a_divider"></span>
-    <a class="a2a_button_facebook"></a>
-    <a class="a2a_button_twitter"></a>
-    <a class="a2a_button_google_plus"></a>
-    <a class="a2a_button_pinterest"></a>
-    <a class="a2a_button_tumblr"></a>
-</div>
-<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
-<style>
-    .a2a_menu {
-        border-radius: 4px;
-    }
-    .a2a_menu a {
-        margin: 2px 0;
-        font-size: 14px;
-        line-height: 16px;
-        border-radius: 4px;
-        color: inherit !important;
-        font-family: 'Microsoft Yahei';
-    }
-    #a2apage_dropdown {
-        margin: 10px 0;
-    }
-    .a2a_mini_services {
-        padding: 10px;
-    }
-    a.a2a_i,
-    i.a2a_i {
-        width: 122px;
-        line-height: 16px;
-    }
-    a.a2a_i .a2a_svg,
-    a.a2a_more .a2a_svg {
-        width: 16px;
-        height: 16px;
-        line-height: 16px;
-        vertical-align: top;
-        background-size: 16px;
-    }
-    a.a2a_i {
-        border: none !important;
-    }
-    a.a2a_menu_show_more_less {
-        margin: 0;
-        padding: 10px 0;
-        line-height: 16px;
-    }
-    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
-    .a2a_mini_services{*+height:1%;}
-</style>
-
-</div>
-
-            
-    
-        <a href="https://zggdczfr.cn/2017/02/21/Spring-Cloud-Config-续/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://zggdczfr.cn/2017/02/21/Spring-Cloud-Config-续/">评论</a>
-    
-
-        </footer>
-    </div>
-    
-        
-<nav id="article-nav">
-    
-        <a href="/2017/02/25/让个人域名下GithubPage完美支持https/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    让个人域名下GithubPage完美支持https
-                
+                    
+                </div>
             </div>
-        </a>
+        </div>
     
-    
-        <a href="/2017/02/20/Spring-Cloud-Config/" id="article-nav-older" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">Spring Cloud Config</div>
-        </a>
-    
-</nav>
-
-
-    
-</article>
-
-
-    
-    <section id="comments">
-    
-        
-    <div class="ds-thread" data-thread-key="2017/02/21/Spring-Cloud-Config-续/" data-title="Spring Cloud Config(续)" data-url="https://zggdczfr.cn/2017/02/21/Spring-Cloud-Config-续/"></div>
-    <style>
-        #ds-thread #ds-reset .ds-textarea-wrapper {
-            background: none;
-        }
-        #ds-reset .ds-avatar img {
-            box-shadow: none;
-        }
-        #ds-reset .ds-gradient-bg {
-            background: #f7f7f7;
-        }
-        #ds-thread #ds-reset li.ds-tab a {
-            border-radius: 3px;
-        }
-        #ds-thread #ds-reset .ds-post-button {
-            color: white;
-            border: none;
-            box-shadow: none;
-            background: #d32;
-            text-shadow: none;
-            font-weight: normal;
-            font-family: 'Microsoft Yahei';
-        }
-        #ds-thread #ds-reset .ds-post-button:hover {
-            color: white;
-            background: #DE594C;
-        }
-        #ds-thread #ds-reset .ds-post-button:active {
-            background: #d32;
-        }
-        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
-            color: white;
-            background: #d32;
-            box-shadow: none;
-            text-shadow: none;
-            font-weight: normal;
-        }
-    </style>
-
-    
-    </section>
-
+</div>
 </section>
             
                 <aside id="sidebar">
